@@ -3,20 +3,22 @@ package unq.edu.ar.UIS_Modelo
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
-import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.utils.TransactionalAndObservable
 
 @Accessors
-@Observable
+@TransactionalAndObservable
 class Laberinto {
 	
 	String nombreLaberinto
 	List<Habitacion> habitaciones
 	Habitacion habitacionActual
 	
+	
 	new(String nombreLaberinto){
 		this.nombreLaberinto = nombreLaberinto
 		this.habitaciones = newArrayList()
 		this.habitacionActual = null
+		
 	}
 	
 	def agregarHabitacion(Habitacion habitacion){

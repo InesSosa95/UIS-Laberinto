@@ -10,17 +10,18 @@ import org.uqbar.commons.utils.Observable
 class Inventario {
 	
 	Integer idInventario
-	Habitacion habitacion
+	Laberinto laberinto
 	Usuario usuario
 	List<String> items
 	
-	new (Habitacion habitacion){
-		this.habitacion = habitacion
+	new (Laberinto laberinto){
+		this.laberinto = laberinto
 		this.usuario = usuario
+		this.items = newArrayList()
 	}
 	
 	def agregarItem(String item){
-		if (items.size <= 15) items.add(item)
+		if (items.size < 15) items.add(item)
 		else {throw new UserException("El inventario esta lleno")} 
 	}
 	
