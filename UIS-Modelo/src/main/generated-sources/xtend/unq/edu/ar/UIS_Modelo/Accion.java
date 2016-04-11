@@ -9,22 +9,10 @@ import unq.edu.ar.UIS_Modelo.Habitacion;
 @TransactionalAndObservable
 @SuppressWarnings("all")
 public class Accion {
-  private String nombreAccion;
-  
   private Habitacion habitacionActual;
   
-  public Accion(final String nombre, final Habitacion habitacion) {
-    this.nombreAccion = nombre;
+  public Accion(final Habitacion habitacion) {
     this.habitacionActual = habitacion;
-  }
-  
-  @Pure
-  public String getNombreAccion() {
-    return this.nombreAccion;
-  }
-  
-  public void setNombreAccion(final String nombreAccion) {
-    this.nombreAccion = nombreAccion;
   }
   
   @Pure

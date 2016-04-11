@@ -1,72 +1,66 @@
 package unq.edu.ar.UIS_Modelo
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.TransactionalAndObservable
 
 @Accessors
 @TransactionalAndObservable
 class Accion {
 	
-	String nombreAccion
 	Habitacion habitacionActual
 	
-	new(String nombre,Habitacion habitacion ){
-		nombreAccion = nombre
+	new(Habitacion habitacion ){
 		habitacionActual = habitacion
 	}
 }
 
 class AccionMoverDeHabitacion extends Accion{
 
-	new(String nombre, Habitacion habitacion) {
-		super(nombre, habitacion)
+	new(Habitacion habitacion) {
+		super (habitacion)
 	}
 	
-	def void moverse(Habitacion otraHabitacion){
-		if(habitacionActual.esHabitacionVecina(otraHabitacion) && otraHabitacion.estaHabilitada== true)
-			 habitacionActual = otraHabitacion
-		else {throw new UserException("No se puede mover a esta habitacion")}
+	def habitacionesDisponibles(){
+		return habitacionActual.vecinas
 	}
+	
 }
 
 class AccionAgarrarItem extends Accion{
 	
-	Inventario inventario
-	
-	new(String nombre, Habitacion habitacion) {
-		super(nombre, habitacion)
+	new(Habitacion habitacion){
+		super (habitacion)
 	}
 	
-	def agarraItem(){
-		var item = habitacionActual.itemsDisponibles.get(0)
-		inventario.agregarItem(item.nombreItem)
-		habitacionActual.itemsDisponibles.remove(item)	
+	def agregarItemDisponble(String nombreItem){
+		this.habitacionActual.itemsDisponibles.add(nombreItem)
 	}
 	
 }
 class AccionUsarItem extends Accion{
 	
-	new(String nombre, Habitacion habitacion) {
-		super(nombre, habitacion)
-	}
+	String itemSeleccionado
 	
-	def void usarItem(Item item, Habitacion habitacion){
-		habitacion.eliminarItem(item)
-				
-		}
+	new(Habitacion habitacion, String item){
+		super(habitacion)
+		itemSeleccionado = item
+	}	
+	def crearAccionItem(){
+		//////!!!!!?????????
+	}
+
 	}
 class AccionSalir extends Accion{
 	
-	new(String nombre, Habitacion habitacion) {
-		super(nombre, habitacion)
+	new(Habitacion habitacion) {
+		super( habitacion)
 	}
 	
 	}
 class AccionRendirse extends Accion{
 	
-	new(String nombre, Habitacion habitacion) {
-		super(nombre, habitacion)
+	new(Habitacion habitacion) {
+		super( habitacion)
 	}
 	
 	}

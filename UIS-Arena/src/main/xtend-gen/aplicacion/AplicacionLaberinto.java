@@ -1,13 +1,19 @@
 package aplicacion;
 
-import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos;
+import aplicationModel.GatoEncerradoModel;
+import org.uqbar.arena.Application;
+import org.uqbar.arena.windows.Window;
 import view.GatoEncerradoWindow;
 
 @SuppressWarnings("all")
-public class AplicacionLaberinto {
+public class AplicacionLaberinto extends Application {
+  public Window<?> createMainWindow() {
+    GatoEncerradoModel _gatoEncerradoModel = new GatoEncerradoModel();
+    return new GatoEncerradoWindow(this, _gatoEncerradoModel);
+  }
+  
   public static void main(final String[] args) {
-    SistemaDeLaberintos _sistemaDeLaberintos = new SistemaDeLaberintos();
-    GatoEncerradoWindow _gatoEncerradoWindow = new GatoEncerradoWindow(_sistemaDeLaberintos);
-    _gatoEncerradoWindow.startApplication();
+    AplicacionLaberinto _aplicacionLaberinto = new AplicacionLaberinto();
+    _aplicacionLaberinto.start();
   }
 }

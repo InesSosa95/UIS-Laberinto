@@ -11,5 +11,18 @@ class SistemaDeLaberintos {
 	List<Laberinto> laberintos
 	Laberinto laberintoSeleccionado
 	List<Usuario> usuarios
+	Usuario admin
 	
+	
+	
+	
+	
+	def agregarLaberinto(String nombre){
+		if(!laberintos.contiene LaberintoDeNombre(nombre))
+				 this.laberintos.add(new Laberinto(nombre, admin))
+	}
+	
+	def eliminarHabitacion(Habitacion habitacion){
+		habitaciones.remove(habitacion)
+	}
 }

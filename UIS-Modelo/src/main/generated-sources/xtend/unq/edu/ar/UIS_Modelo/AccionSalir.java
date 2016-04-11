@@ -5,7 +5,7 @@ import unq.edu.ar.UIS_Modelo.Habitacion;
 
 @SuppressWarnings("all")
 public class AccionSalir extends Accion {
-  public AccionSalir(final String nombre, final Habitacion habitacion) {
-    super(nombre, habitacion);
+  public AccionSalir(final Habitacion habitacion) {
+    super(habitacion);
   }
 }

@@ -5,7 +5,7 @@ import unq.edu.ar.UIS_Modelo.Habitacion;
 
 @SuppressWarnings("all")
 public class AccionRendirse extends Accion {
-  public AccionRendirse(final String nombre, final Habitacion habitacion) {
-    super(nombre, habitacion);
+  public AccionRendirse(final Habitacion habitacion) {
+    super(habitacion);
   }
 }

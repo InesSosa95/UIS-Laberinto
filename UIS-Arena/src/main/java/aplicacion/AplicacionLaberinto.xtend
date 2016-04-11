@@ -1,18 +1,17 @@
 package aplicacion
 
-import unq.edu.ar.UIS_Modelo.Habitacion
-import view.AgregarAccionWindow
-import unq.edu.ar.UIS_Modelo.Accion
-import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos
+import aplicationModel.GatoEncerradoModel
+import org.uqbar.arena.Application
 import view.GatoEncerradoWindow
 
-class AplicacionLaberinto {
+class AplicacionLaberinto extends Application{
 
-def static main(String[] args){
-		
-		//new AgregarAccionWindow(new Accion("Mover", new Habitacion("", false, false, null, true))).startApplication
-		new GatoEncerradoWindow(new SistemaDeLaberintos).startApplication
-		// new(String id,Boolean esFinal, Boolean esInicial, Item itemUtilizable, Boolean habilitada)
+	
+	override createMainWindow() {
+		new GatoEncerradoWindow(this, new GatoEncerradoModel)
 	}
 	
+	def static main(String[] args){
+		new AplicacionLaberinto().start
+	}
 }

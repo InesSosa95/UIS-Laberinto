@@ -2,8 +2,8 @@ package unq.edu.ar.UIS_Modelo
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.TransactionalAndObservable
+import org.eclipse.xtend.lib.annotations.ToStringProcessor.Util
 
 @Accessors
 @TransactionalAndObservable
@@ -11,13 +11,17 @@ class Laberinto {
 	
 	String nombreLaberinto
 	List<Habitacion> habitaciones
-	Habitacion habitacionActual
+	Habitacion habitacionInicial
+	Habitacion habitacionFinal
+	Usuario administrador
 	
 	
-	new(String nombreLaberinto){
+	new(String nombreLaberinto, Usuario administrador){
 		this.nombreLaberinto = nombreLaberinto
+		this.administrador = administrador
 		this.habitaciones = newArrayList()
-		this.habitacionActual = null
+		this.habitacionInicial = null
+		this.habitacionFinal = null
 		
 	}
 	
@@ -25,8 +29,8 @@ class Laberinto {
 		if(!habitaciones.contains(habitacion)) habitaciones.add(habitacion)
 	}
 	
-	def moverHabitacion(Habitacion habitacion){
-		if(habitacionActual.esHabitacionVecina(habitacion)) habitacionActual = habitacion
-		else {throw new UserException("No puede moverse a esta habitación")}
+	def eliminarHabitacion(Habitacion habitacion){
+		habitaciones.remove(habitacion)
 	}
+	
 }

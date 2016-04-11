@@ -5,9 +5,9 @@ import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.uqbar.commons.model.UserException;
 import org.uqbar.commons.utils.TransactionalAndObservable;
 import unq.edu.ar.UIS_Modelo.Habitacion;
+import unq.edu.ar.UIS_Modelo.Usuario;
 
 @Accessors
 @TransactionalAndObservable
@@ -17,13 +17,19 @@ public class Laberinto {
   
   private List<Habitacion> habitaciones;
   
-  private Habitacion habitacionActual;
+  private Habitacion habitacionInicial;
   
-  public Laberinto(final String nombreLaberinto) {
+  private Habitacion habitacionFinal;
+  
+  private Usuario administrador;
+  
+  public Laberinto(final String nombreLaberinto, final Usuario administrador) {
     this.nombreLaberinto = nombreLaberinto;
+    this.administrador = administrador;
     ArrayList<Habitacion> _newArrayList = CollectionLiterals.<Habitacion>newArrayList();
     this.habitaciones = _newArrayList;
-    this.habitacionActual = null;
+    this.habitacionInicial = null;
+    this.habitacionFinal = null;
   }
   
   public boolean agregarHabitacion(final Habitacion habitacion) {
@@ -36,15 +42,8 @@ public class Laberinto {
     return _xifexpression;
   }
   
-  public Habitacion moverHabitacion(final Habitacion habitacion) {
-    Habitacion _xifexpression = null;
-    boolean _esHabitacionVecina = this.habitacionActual.esHabitacionVecina(habitacion);
-    if (_esHabitacionVecina) {
-      _xifexpression = this.habitacionActual = habitacion;
-    } else {
-      throw new UserException("No puede moverse a esta habitación");
-    }
-    return _xifexpression;
+  public boolean eliminarHabitacion(final Habitacion habitacion) {
+    return this.habitaciones.remove(habitacion);
   }
   
   @Pure
@@ -66,11 +65,29 @@ public class Laberinto {
   }
   
   @Pure
-  public Habitacion getHabitacionActual() {
-    return this.habitacionActual;
+  public Habitacion getHabitacionInicial() {
+    return this.habitacionInicial;
   }
   
-  public void setHabitacionActual(final Habitacion habitacionActual) {
-    this.habitacionActual = habitacionActual;
+  public void setHabitacionInicial(final Habitacion habitacionInicial) {
+    this.habitacionInicial = habitacionInicial;
+  }
+  
+  @Pure
+  public Habitacion getHabitacionFinal() {
+    return this.habitacionFinal;
+  }
+  
+  public void setHabitacionFinal(final Habitacion habitacionFinal) {
+    this.habitacionFinal = habitacionFinal;
+  }
+  
+  @Pure
+  public Usuario getAdministrador() {
+    return this.administrador;
+  }
+  
+  public void setAdministrador(final Usuario administrador) {
+    this.administrador = administrador;
   }
 }

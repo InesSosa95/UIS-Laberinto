@@ -1,58 +1,48 @@
 package view
 
-import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos
-import org.uqbar.arena.windows.MainWindow
-import org.uqbar.arena.widgets.Panel
+import aplicationModel.GatoEncerradoModel
 import java.awt.Color
-import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.List
-import unq.edu.ar.UIS_Modelo.Laberinto
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.widgets.RadioSelector
 import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
 import unq.edu.ar.UIS_Modelo.Habitacion
+import unq.edu.ar.UIS_Modelo.Laberinto
 
-class GatoEncerradoWindow extends MainWindow<SistemaDeLaberintos>{
+import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+
+class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 	
-	new(SistemaDeLaberintos model) {
-		super(model)
+	new(WindowOwner parent, GatoEncerradoModel model) {
+		super(parent, model)
+		title = "Aca hay gato encerrado..."
+		//taskDescription = "Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos"  
 	}
 	
 	override createContents(Panel mainPanel) {
 	 
 	 
-	 
-	 
-	 
-	 //val panelPersonaje = new Panel(mainPanel)
-	 //panelPersonaje.setLayout(new HorizontalLayout)
-	 
-	 
-		
-		/* new Selector<ControladorEstadisticas>(mainPanel) => [
-            
-            allowNull = false
-            bindItemsToProperty("nombreEstadisticas")
-            bindValueToProperty("nombrePersonaje")
-			]
-			
-			* 
-			*/
-	 
-	 new Label(mainPanel)  => [
-	 	
-	 	title = "Hola juan! administrá todos tus laberintos"
-	 ]
+	
 	 
 	 new Label(mainPanel) => [
-			//width = 50
+			width = 1000
+			setText("Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos")
+			height = 15
+			fontSize = 10
+			]
+	 
+	 new Label(mainPanel) => [
+			width = 1000
 			setText("Aca hay gato encerrado...")
 			setBackground(Color.RED)
 			height = 30
-			//width = 600
-			//height = 10
 			fontSize = 20
-		    //setForeground(Color.WHITE)
 			]
 			
 	new Label(mainPanel) => [
@@ -73,25 +63,29 @@ class GatoEncerradoWindow extends MainWindow<SistemaDeLaberintos>{
 					]
 					
 					
-					new List<Laberinto>(panelLaberintos)=> [
-						
-						width = 200
-						height = 200
-						
-					]
-					
+      				new List<Laberinto>(panelLaberintos) => [
+            		(items <=> "laberintos").adapter = new PropertyAdapter(typeof(Laberinto), "nombreLaberinto")
+            		value <=> "laberintoSeleccionado"
+            		width = 220
+            		height = 220
+            		
+      ]
+		
+				
 					val panelOpcionesLaberintos = new Panel(panelLaberintos)
 					panelOpcionesLaberintos.setLayout(new HorizontalLayout)
 					
 						new Button(panelOpcionesLaberintos) => [
 						setCaption("Agregar Laberinto")
-						fontSize = 8
+						fontSize = 11
+						width = 140
 			 			onClick [ | close]
 						]
 					
 						new Button(panelOpcionesLaberintos) => [
 						setCaption("Eliminar Laberinto")
-						fontSize = 8
+						fontSize = 11
+						width = 140
 			 			onClick [ | close]
 						]
 					 
@@ -99,11 +93,13 @@ class GatoEncerradoWindow extends MainWindow<SistemaDeLaberintos>{
 				val panelHabitaciones = new Panel(panelOpciones)
 				
 					new Label(panelHabitaciones) => [
-						setText("Nombre de Laberinto <bindear>")
+						bindValueToProperty("laberintoSeleccionado.nombreLaberinto")
 						height = 15
 						fontSize = 10
 						
-					]
+						]
+						
+				
 					
 					new Label(panelHabitaciones) => [
 						setText("Nombre de Laberinto:")
@@ -127,7 +123,7 @@ class GatoEncerradoWindow extends MainWindow<SistemaDeLaberintos>{
 					
 					new List<Habitacion>(panelHabitaciones)=> [
 						
-						width = 200
+						width = 300
 						height = 200
 						
 					]
@@ -137,18 +133,89 @@ class GatoEncerradoWindow extends MainWindow<SistemaDeLaberintos>{
 					
 					new Button(panelOpcionesHabitacion) => [
 						setCaption("Agregar Habitacion")
-						fontSize = 8
+						fontSize = 11
+						width = 140
 			 			onClick [ | close]
 						]
 					
 					new Button(panelOpcionesHabitacion) => [
 						setCaption("Eliminar Habitacion")
-						fontSize = 8
+						fontSize = 11
+						width = 140
 			 			onClick [ | close]
 						]
 					
 				
 				val panelAcciones = new Panel(panelOpciones)
+				
+				
+				new Label(panelAcciones) => [
+						setText("Habitacion seleccionada: <bindear>")
+						height = 15
+						fontSize = 10
+						
+					]
+					
+				new Label(panelAcciones) => [
+						setText("Nombre")
+						height = 15
+						fontSize = 10
+						
+					] 
+					
+					new TextBox(panelAcciones) => [
+						height = 15
+						fontSize = 10
+						width = 100
+						
+					]
+					
+					new RadioSelector(panelAcciones) => [
+						//opciones esFinal y esInicial
+						//ejemplo de bind:
+						//bindItems(new ObservableProperty(this, "estadosCiviles"))
+            			//bindValueToProperty("estadoCivil")
+						
+					]
+					
+					
+					
+					new Label(panelAcciones) => [
+						height = 100
+					]
+					
+					
+					new Label(panelAcciones) => [
+						setText("Acciones")
+						height = 15
+						fontSize = 10
+						
+					]
+					
+					new List<Habitacion>(panelAcciones)=> [
+						
+						width = 300
+						height = 100
+						
+					]
+				
+					val panelAccionBotones= new Panel(panelAcciones)
+					panelAccionBotones.setLayout(new HorizontalLayout)		
+					 
+					new Button(panelAccionBotones) => [
+						setCaption("Agregar Accion")
+						fontSize = 11
+						width = 140
+			 			onClick [ | close]
+						]
+					
+					new Button(panelAccionBotones) => [
+						setCaption("Eliminar Accion")
+						fontSize = 11
+						width = 140
+			 			onClick [ | close]
+						]
+					
 			
 			
 			
@@ -368,6 +435,14 @@ class GatoEncerradoWindow extends MainWindow<SistemaDeLaberintos>{
 	def void abrirEstadistica() {
       //this.openDialog(new WindowEstadistica(this, modelObject.seleccionar))
       //modelObject.abrirEstadistica()
+}
+
+override protected addActions(Panel arg0) {
+	throw new UnsupportedOperationException("TODO: auto-generated method stub")
+}
+
+override protected createFormPanel(Panel arg0) {
+	throw new UnsupportedOperationException("TODO: auto-generated method stub")
 }
 	
 	

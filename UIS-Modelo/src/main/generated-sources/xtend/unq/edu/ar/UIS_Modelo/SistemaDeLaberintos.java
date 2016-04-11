@@ -17,6 +17,17 @@ public class SistemaDeLaberintos {
   
   private List<Usuario> usuarios;
   
+  private Usuario admin;
+  
+  public Object agregarLaberinto(final String nombre) {
+    throw new Error("Unresolved compilation problems:"
+      + "\nmissing \')\' at \'LaberintoDeNombre\'"
+      + "\nmismatched input \')\' expecting \'}\'"
+      + "\nThe method or field contiene is undefined for the type List<Laberinto>"
+      + "\nThe method LaberintoDeNombre(String) is undefined"
+      + "\n! cannot be resolved");
+  }
+  
   @Pure
   public List<Laberinto> getLaberintos() {
     return this.laberintos;
@@ -42,5 +53,14 @@ public class SistemaDeLaberintos {
   
   public void setUsuarios(final List<Usuario> usuarios) {
     this.usuarios = usuarios;
+  }
+  
+  @Pure
+  public Usuario getAdmin() {
+    return this.admin;
+  }
+  
+  public void setAdmin(final Usuario admin) {
+    this.admin = admin;
   }
 }
