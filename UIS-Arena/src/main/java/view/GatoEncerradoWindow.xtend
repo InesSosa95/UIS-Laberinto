@@ -1,43 +1,25 @@
 package view
 
-import java.awt.Dialog
-import org.uqbar.arena.aop.windows.TransactionalDialog
-import org.uqbar.arena.layout.HorizontalLayout
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.List
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.WindowOwner
-import unq.edu.ar.UIS_Modelo.Accion
+import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos
 import org.uqbar.arena.windows.MainWindow
-import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.Panel
 import java.awt.Color
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.List
+import unq.edu.ar.UIS_Modelo.Laberinto
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.TextBox
+import unq.edu.ar.UIS_Modelo.Habitacion
 
-class AgregarAccionWindow extends MainWindow<Accion>{ //TransactionalDialog<Accion>
+class GatoEncerradoWindow extends MainWindow<SistemaDeLaberintos>{
 	
-	
-	
-	new(Accion model) {
+	new(SistemaDeLaberintos model) {
 		super(model)
-		title = "Agregar Accion"
-		
-		
 	}
-	
-	def createFormPanel(Panel arg0) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-
-
-	//new(WindowOwner parent, GatoEncerrado model ){
-		//super(parent, model)
-		//title = "Agregar Acción"
-	//}
-	
-	
 	
 	override createContents(Panel mainPanel) {
-	 this.setTitle("				 	                                     	Agregar Accion")
+	 
 	 
 	 
 	 
@@ -57,27 +39,116 @@ class AgregarAccionWindow extends MainWindow<Accion>{ //TransactionalDialog<Acci
 			* 
 			*/
 	 
-	 new Label(mainPanel) => [
-			//width = 50
-			height = 10
-			]
+	 new Label(mainPanel)  => [
+	 	
+	 	title = "Hola juan! administrá todos tus laberintos"
+	 ]
 	 
 	 new Label(mainPanel) => [
-			setText("Selecciona una accion a agregar:")
-			//setBackground(Color.BLACK)
+			//width = 50
+			setText("Aca hay gato encerrado...")
+			setBackground(Color.RED)
+			height = 30
 			//width = 600
 			//height = 10
-			//fontSize = 15
+			fontSize = 20
 		    //setForeground(Color.WHITE)
 			]
 			
-			new Label(mainPanel) => [
+	new Label(mainPanel) => [
 			//width = 50
 			height = 20
 			]
 			
 			val panelOpciones = new Panel(mainPanel)
 			panelOpciones.setLayout(new HorizontalLayout)
+			
+				val panelLaberintos = new Panel(panelOpciones)
+				
+					new Label(panelLaberintos) => [
+						setText("Laberintos")
+						height = 15
+						fontSize = 10
+						
+					]
+					
+					
+					new List<Laberinto>(panelLaberintos)=> [
+						
+						width = 200
+						height = 200
+						
+					]
+					
+					val panelOpcionesLaberintos = new Panel(panelLaberintos)
+					panelOpcionesLaberintos.setLayout(new HorizontalLayout)
+					
+						new Button(panelOpcionesLaberintos) => [
+						setCaption("Agregar Laberinto")
+						fontSize = 8
+			 			onClick [ | close]
+						]
+					
+						new Button(panelOpcionesLaberintos) => [
+						setCaption("Eliminar Laberinto")
+						fontSize = 8
+			 			onClick [ | close]
+						]
+					 
+				
+				val panelHabitaciones = new Panel(panelOpciones)
+				
+					new Label(panelHabitaciones) => [
+						setText("Nombre de Laberinto <bindear>")
+						height = 15
+						fontSize = 10
+						
+					]
+					
+					new Label(panelHabitaciones) => [
+						setText("Nombre de Laberinto:")
+						height = 15
+						fontSize = 10
+						
+					]
+					
+					new TextBox(panelHabitaciones) => [
+						height = 15
+						fontSize = 10
+						
+					]
+					
+					new Label(panelHabitaciones) => [
+						//espacio
+						height = 20
+					
+					]
+					
+					
+					new List<Habitacion>(panelHabitaciones)=> [
+						
+						width = 200
+						height = 200
+						
+					]
+					
+					val panelOpcionesHabitacion = new Panel(panelHabitaciones)
+					panelOpcionesHabitacion.setLayout(new HorizontalLayout)
+					
+					new Button(panelOpcionesHabitacion) => [
+						setCaption("Agregar Habitacion")
+						fontSize = 8
+			 			onClick [ | close]
+						]
+					
+					new Button(panelOpcionesHabitacion) => [
+						setCaption("Eliminar Habitacion")
+						fontSize = 8
+			 			onClick [ | close]
+						]
+					
+				
+				val panelAcciones = new Panel(panelOpciones)
 			
 			
 			
@@ -97,15 +168,7 @@ class AgregarAccionWindow extends MainWindow<Accion>{ //TransactionalDialog<Acci
 			
 			//val panelIrAHabitacion = new Panel(panelOpciones2)
 			
-			new Label(panelOpciones) => [
-			width = 50
-			]
-			
-			new Button(panelOpciones) => [
-			setCaption("Agregar accion de ir a otra habitacion")
-			fontSize = 8
-			 onClick [ | close]
-			]
+			/*
 			
 			new Label(panelOpciones) => [
 			width = 50
@@ -131,6 +194,16 @@ class AgregarAccionWindow extends MainWindow<Accion>{ //TransactionalDialog<Acci
 			width = 50
 			]
 			
+			new Button(panelOpciones) => [
+			setCaption("Agregar accion de ir a otra habitacion")
+			fontSize = 8
+			 onClick [ | close]
+			]
+			
+			new Label(panelOpciones) => [
+			width = 50
+			]
+			 */
 			
 			
 			/*
@@ -298,14 +371,4 @@ class AgregarAccionWindow extends MainWindow<Accion>{ //TransactionalDialog<Acci
 }
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
 }

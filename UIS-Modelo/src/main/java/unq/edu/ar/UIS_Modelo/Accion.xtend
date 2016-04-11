@@ -40,17 +40,34 @@ class AccionAgarrarItem extends Accion{
 	
 	def agarraItem(){
 		var item = habitacionActual.itemsDisponibles.get(0)
-		inventario.agregarItem(item)
+		inventario.agregarItem(item.nombreItem)
 		habitacionActual.itemsDisponibles.remove(item)	
 	}
 	
 }
 class AccionUsarItem extends Accion{
+	
+	new(String nombre, Habitacion habitacion) {
+		super(nombre, habitacion)
+	}
+	
 	def void usarItem(Item item, Habitacion habitacion){
 		habitacion.eliminarItem(item)
 				
 		}
 	}
-class AccionSalir extends Accion{}
-class AccionRendirse extends Accion{}
+class AccionSalir extends Accion{
+	
+	new(String nombre, Habitacion habitacion) {
+		super(nombre, habitacion)
+	}
+	
+	}
+class AccionRendirse extends Accion{
+	
+	new(String nombre, Habitacion habitacion) {
+		super(nombre, habitacion)
+	}
+	
+	}
 

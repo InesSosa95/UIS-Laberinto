@@ -15,11 +15,33 @@
   </properties>
 
   <dependencies>
+  
+  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.uqbar-project</groupId>
+      <artifactId>arena-jface</artifactId>
+      <version>3.6.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+    <groupId>unq.edu.ar</groupId>
+  <artifactId>UIS-Modelo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  </dependency>
+  
   </dependencies>
+  
 </project>
