@@ -150,6 +150,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
     TextBox _textBox = new TextBox(panelHabitaciones);
     final Procedure1<TextBox> _function_9 = new Procedure1<TextBox>() {
       public void apply(final TextBox it) {
+        it.<Object, ControlBuilder>bindValueToProperty("laberintoSeleccionado.nombreLaberinto");
         it.setHeight(15);
         it.setFontSize(10);
       }

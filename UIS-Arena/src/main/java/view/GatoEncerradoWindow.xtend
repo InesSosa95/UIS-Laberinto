@@ -109,6 +109,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 					]
 					
 					new TextBox(panelHabitaciones) => [
+						bindValueToProperty("laberintoSeleccionado.nombreLaberinto")
 						height = 15
 						fontSize = 10
 						
