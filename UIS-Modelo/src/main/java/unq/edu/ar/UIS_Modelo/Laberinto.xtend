@@ -15,6 +15,11 @@ class Laberinto {
 	Habitacion habitacionFinal
 	Usuario administrador
 	
+	new(){
+		this.habitaciones = newArrayList()
+		this.habitacionInicial = null
+		this.habitacionFinal = null
+	}
 	
 	new(String nombreLaberinto, Usuario administrador){
 		this.nombreLaberinto = nombreLaberinto

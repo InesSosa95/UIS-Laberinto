@@ -34,6 +34,8 @@ public class Habitacion {
     this.itemsDisponibles = _newArrayList_1;
     this.itemUtilizable = this.itemUtilizable;
     this.estaDisponible = disponibilidad;
+    ArrayList<Accion> _newArrayList_2 = CollectionLiterals.<Accion>newArrayList();
+    this.acciones = _newArrayList_2;
   }
   
   public boolean esHabitacionVecina(final Habitacion habitacion) {

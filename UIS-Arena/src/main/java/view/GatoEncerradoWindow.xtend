@@ -1,6 +1,5 @@
 package view
 
-import aplicationModel.GatoEncerradoModel
 import java.awt.Color
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.HorizontalLayout
@@ -16,10 +15,12 @@ import unq.edu.ar.UIS_Modelo.Habitacion
 import unq.edu.ar.UIS_Modelo.Laberinto
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.windows.Dialog
+import aplicationModel.GatoEncerradoAppModel
 
-class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
+class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	
-	new(WindowOwner parent, GatoEncerradoModel model) {
+	new(WindowOwner parent, GatoEncerradoAppModel model) {
 		super(parent, model)
 		title = "Aca hay gato encerrado..."
 		//taskDescription = "Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos"  
@@ -79,8 +80,15 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 						setCaption("Agregar Laberinto")
 						fontSize = 11
 						width = 140
-			 			onClick [ | close]
+			 			onClick [ | crearLaberinto]
 						]
+						
+						/*
+						new Button(panelOpciones) => [
+						setCaption("Cancelar")
+						onClick [|enviarDenuncia]
+		]				*/
+						
 					
 						new Button(panelOpcionesLaberintos) => [
 						setCaption("Eliminar Laberinto")
@@ -96,10 +104,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 						bindValueToProperty("laberintoSeleccionado.nombreLaberinto")
 						height = 15
 						fontSize = 10
-						
 						]
-						
-				
 					
 					new Label(panelHabitaciones) => [
 						setText("Nombre de Laberinto:")
@@ -123,7 +128,8 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 					
 					
 					new List<Habitacion>(panelHabitaciones)=> [
-						
+						(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(typeof(Habitacion), "id")
+            		value <=> "habitacionSeleccionada"
 						width = 300
 						height = 200
 						
@@ -151,7 +157,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 				
 				
 				new Label(panelAcciones) => [
-						setText("Habitacion seleccionada: <bindear>")
+						bindValueToProperty("habitacionSeleccionada.id")
 						height = 15
 						fontSize = 10
 						
@@ -165,6 +171,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 					] 
 					
 					new TextBox(panelAcciones) => [
+						bindValueToProperty("habitacionSeleccionada.id")
 						height = 15
 						fontSize = 10
 						width = 100
@@ -194,7 +201,8 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 					]
 					
 					new List<Habitacion>(panelAcciones)=> [
-						
+						(items <=> "habitacionSeleccionada.acciones")//TODO .adapter = new PropertyAdapter(typeof(Accion), "id")
+            			value <=> "accionSeleccionada"
 						width = 300
 						height = 100
 						
@@ -428,6 +436,8 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
 	*/
 	}
 	
+	
+	
 	//def openDialog(Dialog<?> dialog) {
 		//dialog.onAccept[|modelObject.seleccionar]
 		//dialog.open
@@ -438,6 +448,17 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel>{
       //modelObject.abrirEstadistica()
 }
 
+
+	def crearLaberinto(){
+		this.openDialog(new CrearLaberintoWindow(this, modelObject.laberintoSeleccionado))
+	}
+
+	def openDialog(Dialog<?> dialog) {
+		//dialog.onAccept[|modelObject.crearDenuncia()]
+		dialog.open
+	}
+
+	
 override protected addActions(Panel arg0) {
 	throw new UnsupportedOperationException("TODO: auto-generated method stub")
 }

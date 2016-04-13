@@ -23,6 +23,13 @@ public class Laberinto {
   
   private Usuario administrador;
   
+  public Laberinto() {
+    ArrayList<Habitacion> _newArrayList = CollectionLiterals.<Habitacion>newArrayList();
+    this.habitaciones = _newArrayList;
+    this.habitacionInicial = null;
+    this.habitacionFinal = null;
+  }
+  
   public Laberinto(final String nombreLaberinto, final Usuario administrador) {
     this.nombreLaberinto = nombreLaberinto;
     this.administrador = administrador;

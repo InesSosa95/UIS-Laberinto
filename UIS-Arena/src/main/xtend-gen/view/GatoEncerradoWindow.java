@@ -1,6 +1,6 @@
 package view;
 
-import aplicationModel.GatoEncerradoModel;
+import aplicationModel.GatoEncerradoAppModel;
 import java.awt.Color;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -16,6 +16,7 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.RadioSelector;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.xtend.ArenaXtendExtensions;
@@ -26,10 +27,11 @@ import org.uqbar.lacar.ui.model.bindings.Binding;
 import unq.edu.ar.UIS_Modelo.Habitacion;
 import unq.edu.ar.UIS_Modelo.Laberinto;
 import unq.edu.ar.UIS_Modelo.Usuario;
+import view.CrearLaberintoWindow;
 
 @SuppressWarnings("all")
-public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
-  public GatoEncerradoWindow(final WindowOwner parent, final GatoEncerradoModel model) {
+public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
+  public GatoEncerradoWindow(final WindowOwner parent, final GatoEncerradoAppModel model) {
     super(parent, model);
     this.setTitle("Aca hay gato encerrado...");
   }
@@ -39,7 +41,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
     final Procedure1<Label> _function = new Procedure1<Label>() {
       public void apply(final Label it) {
         it.setWidth(1000);
-        GatoEncerradoModel _modelObject = GatoEncerradoWindow.this.getModelObject();
+        GatoEncerradoAppModel _modelObject = GatoEncerradoWindow.this.getModelObject();
         Usuario _administrador = _modelObject.getAdministrador();
         String _nombreUsuario = _administrador.getNombreUsuario();
         String _plus = ("Hola " + _nombreUsuario);
@@ -106,7 +108,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
         it.setWidth(140);
         final Action _function = new Action() {
           public void execute() {
-            GatoEncerradoWindow.this.close();
+            GatoEncerradoWindow.this.crearLaberinto();
           }
         };
         it.onClick(_function);
@@ -166,6 +168,12 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
     List<Habitacion> _list_1 = new List<Habitacion>(panelHabitaciones);
     final Procedure1<List<Habitacion>> _function_11 = new Procedure1<List<Habitacion>>() {
       public void apply(final List<Habitacion> it) {
+        ObservableItems<Selector<Habitacion>, Habitacion, ListBuilder<Habitacion>> _items = it.items();
+        Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "laberintoSeleccionado.habitaciones");
+        PropertyAdapter _propertyAdapter = new PropertyAdapter(Habitacion.class, "id");
+        _spaceship.setAdapter(_propertyAdapter);
+        ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
+        ArenaXtendExtensions.operator_spaceship(_value, "habitacionSeleccionada");
         it.setWidth(300);
         it.setHeight(200);
       }
@@ -208,7 +216,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
     Label _label_7 = new Label(panelAcciones);
     final Procedure1<Label> _function_14 = new Procedure1<Label>() {
       public void apply(final Label it) {
-        it.setText("Habitacion seleccionada: <bindear>");
+        it.<Object, ControlBuilder>bindValueToProperty("habitacionSeleccionada.id");
         it.setHeight(15);
         it.setFontSize(10);
       }
@@ -226,6 +234,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
     TextBox _textBox_1 = new TextBox(panelAcciones);
     final Procedure1<TextBox> _function_16 = new Procedure1<TextBox>() {
       public void apply(final TextBox it) {
+        it.<Object, ControlBuilder>bindValueToProperty("habitacionSeleccionada.id");
         it.setHeight(15);
         it.setFontSize(10);
         it.setWidth(100);
@@ -257,6 +266,10 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
     List<Habitacion> _list_2 = new List<Habitacion>(panelAcciones);
     final Procedure1<List<Habitacion>> _function_20 = new Procedure1<List<Habitacion>>() {
       public void apply(final List<Habitacion> it) {
+        ObservableItems<Selector<Habitacion>, Habitacion, ListBuilder<Habitacion>> _items = it.items();
+        ArenaXtendExtensions.operator_spaceship(_items, "habitacionSeleccionada.acciones");
+        ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
+        ArenaXtendExtensions.operator_spaceship(_value, "accionSeleccionada");
         it.setWidth(300);
         it.setHeight(100);
       }
@@ -298,6 +311,17 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoModel> {
   }
   
   public void abrirEstadistica() {
+  }
+  
+  public void crearLaberinto() {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    Laberinto _laberintoSeleccionado = _modelObject.getLaberintoSeleccionado();
+    CrearLaberintoWindow _crearLaberintoWindow = new CrearLaberintoWindow(this, _laberintoSeleccionado);
+    this.openDialog(_crearLaberintoWindow);
+  }
+  
+  public void openDialog(final Dialog<?> dialog) {
+    dialog.open();
   }
   
   protected void addActions(final Panel arg0) {
