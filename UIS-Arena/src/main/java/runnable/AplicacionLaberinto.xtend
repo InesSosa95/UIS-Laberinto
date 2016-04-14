@@ -1,12 +1,13 @@
-package aplicacion
+package runnable
 
-import org.uqbar.arena.Application
-import view.GatoEncerradoWindow
-import unq.edu.ar.UIS_Modelo.Laberinto
-import unq.edu.ar.UIS_Modelo.Habitacion
-import unq.edu.ar.UIS_Modelo.Disponibilidad
-import unq.edu.ar.UIS_Modelo.Accion
 import aplicationModel.GatoEncerradoAppModel
+import org.uqbar.arena.Application
+import unq.edu.ar.UIS_Modelo.Accion
+import unq.edu.ar.UIS_Modelo.Disponibilidad
+import unq.edu.ar.UIS_Modelo.Habitacion
+import unq.edu.ar.UIS_Modelo.Laberinto
+import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos
+import view.GatoEncerradoWindow
 
 class AplicacionLaberinto extends Application{
 
@@ -18,6 +19,7 @@ class AplicacionLaberinto extends Application{
 		
 		var gatoEncerradoModel = new GatoEncerradoAppModel
 		
+		val sistema = new SistemaDeLaberintos (gatoEncerradoModel.administrador)
 		
 		val laberinto1 = new Laberinto("Casa embrujada" ,gatoEncerradoModel.administrador)
 		val laberinto2 = new Laberinto("Museo en la noche" ,gatoEncerradoModel.administrador)
@@ -66,6 +68,7 @@ class AplicacionLaberinto extends Application{
 		val accion23 = new Accion(habitacion5)
 		val accion24 = new Accion(habitacion5)
 		
+				
 		habitacion1.acciones => [
 			add(accion1)
 			add(accion2)
@@ -111,13 +114,12 @@ class AplicacionLaberinto extends Application{
 		laberinto4.agregarHabitacion(habitacion11)
 		laberinto4.agregarHabitacion(habitacion12)
 		
-		gatoEncerradoModel.laberintos => [
+		sistema.laberintos => [
 			add(laberinto1)
 			add(laberinto2)
 			add(laberinto3)
 			add(laberinto4)
 		]
-		
 		
 		
 		

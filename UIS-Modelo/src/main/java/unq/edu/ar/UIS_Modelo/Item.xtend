@@ -7,7 +7,11 @@ import org.uqbar.commons.utils.TransactionalAndObservable
 @TransactionalAndObservable
 class Item {
 	
+	String nombre
+	Accion accion
 	
-	String nombreItem
-	Boolean habilitado
+	new(String nombreItem){
+		nombre = nombreItem
+	}
+	
 }

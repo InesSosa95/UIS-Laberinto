@@ -14,7 +14,7 @@ import unq.edu.ar.UIS_Modelo.Item;
 @TransactionalAndObservable
 @SuppressWarnings("all")
 public class Habitacion {
-  private String id;
+  private String nombre;
   
   private List<Accion> acciones;
   
@@ -27,7 +27,7 @@ public class Habitacion {
   private Disponibilidad estaDisponible;
   
   public Habitacion(final String id, final Disponibilidad disponibilidad) {
-    this.id = id;
+    this.nombre = id;
     ArrayList<Habitacion> _newArrayList = CollectionLiterals.<Habitacion>newArrayList();
     this.vecinas = _newArrayList;
     ArrayList<String> _newArrayList_1 = CollectionLiterals.<String>newArrayList();
@@ -47,12 +47,12 @@ public class Habitacion {
   }
   
   @Pure
-  public String getId() {
-    return this.id;
+  public String getNombre() {
+    return this.nombre;
   }
   
-  public void setId(final String id) {
-    this.id = id;
+  public void setNombre(final String nombre) {
+    this.nombre = nombre;
   }
   
   @Pure

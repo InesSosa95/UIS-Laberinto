@@ -34,6 +34,12 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
   public GatoEncerradoWindow(final WindowOwner parent, final GatoEncerradoAppModel model) {
     super(parent, model);
     this.setTitle("Aca hay gato encerrado...");
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    Usuario _administrador = _modelObject.getAdministrador();
+    String _nombreUsuario = _administrador.getNombreUsuario();
+    String _plus = ("Hola " + _nombreUsuario);
+    String _plus_1 = (_plus + "! Administrá todos tus laberintos");
+    this.setTaskDescription(_plus_1);
   }
   
   public void createContents(final Panel mainPanel) {
@@ -87,7 +93,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     final Procedure1<List<Laberinto>> _function_4 = new Procedure1<List<Laberinto>>() {
       public void apply(final List<Laberinto> it) {
         ObservableItems<Selector<Laberinto>, Laberinto, ListBuilder<Laberinto>> _items = it.items();
-        Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "laberintos");
+        Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "sistema.laberintos");
         PropertyAdapter _propertyAdapter = new PropertyAdapter(Laberinto.class, "nombreLaberinto");
         _spaceship.setAdapter(_propertyAdapter);
         ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();

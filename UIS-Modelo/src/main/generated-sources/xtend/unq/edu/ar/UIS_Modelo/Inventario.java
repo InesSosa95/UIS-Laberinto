@@ -7,6 +7,7 @@ import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.model.UserException;
 import org.uqbar.commons.utils.Observable;
+import unq.edu.ar.UIS_Modelo.Item;
 import unq.edu.ar.UIS_Modelo.Laberinto;
 import unq.edu.ar.UIS_Modelo.Usuario;
 
@@ -20,16 +21,16 @@ public class Inventario {
   
   private Usuario usuario;
   
-  private List<String> items;
+  private List<Item> items;
   
   public Inventario(final Laberinto laberinto) {
     this.laberinto = laberinto;
     this.usuario = this.usuario;
-    ArrayList<String> _newArrayList = CollectionLiterals.<String>newArrayList();
+    ArrayList<Item> _newArrayList = CollectionLiterals.<Item>newArrayList();
     this.items = _newArrayList;
   }
   
-  public boolean agregarItem(final String item) {
+  public boolean agregarItem(final Item item) {
     boolean _xifexpression = false;
     int _size = this.items.size();
     boolean _lessThan = (_size < 15);
@@ -41,7 +42,7 @@ public class Inventario {
     return _xifexpression;
   }
   
-  public boolean eliminarItem(final String item) {
+  public boolean eliminarItem(final Item item) {
     return this.items.remove(item);
   }
   
@@ -73,11 +74,11 @@ public class Inventario {
   }
   
   @Pure
-  public List<String> getItems() {
+  public List<Item> getItems() {
     return this.items;
   }
   
-  public void setItems(final List<String> items) {
+  public void setItems(final List<Item> items) {
     this.items = items;
   }
 }

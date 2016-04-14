@@ -1,17 +1,11 @@
 package view
 
-import java.awt.Dialog
-import org.uqbar.arena.aop.windows.TransactionalDialog
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.WindowOwner
-import unq.edu.ar.UIS_Modelo.Accion
 import org.uqbar.arena.windows.MainWindow
-import org.uqbar.arena.layout.VerticalLayout
-import java.awt.Color
+import unq.edu.ar.UIS_Modelo.Accion
 
 class AgregarAccionWindow extends MainWindow<Accion>{ //TransactionalDialog<Accion>
 	

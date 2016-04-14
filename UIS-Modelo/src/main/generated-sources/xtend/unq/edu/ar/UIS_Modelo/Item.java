@@ -3,30 +3,35 @@ package unq.edu.ar.UIS_Modelo;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.utils.TransactionalAndObservable;
+import unq.edu.ar.UIS_Modelo.Accion;
 
 @Accessors
 @TransactionalAndObservable
 @SuppressWarnings("all")
 public class Item {
-  private String nombreItem;
+  private String nombre;
   
-  private Boolean habilitado;
+  private Accion accion;
   
-  @Pure
-  public String getNombreItem() {
-    return this.nombreItem;
-  }
-  
-  public void setNombreItem(final String nombreItem) {
-    this.nombreItem = nombreItem;
+  public Item(final String nombreItem) {
+    this.nombre = nombreItem;
   }
   
   @Pure
-  public Boolean getHabilitado() {
-    return this.habilitado;
+  public String getNombre() {
+    return this.nombre;
   }
   
-  public void setHabilitado(final Boolean habilitado) {
-    this.habilitado = habilitado;
+  public void setNombre(final String nombre) {
+    this.nombre = nombre;
+  }
+  
+  @Pure
+  public Accion getAccion() {
+    return this.accion;
+  }
+  
+  public void setAccion(final Accion accion) {
+    this.accion = accion;
   }
 }

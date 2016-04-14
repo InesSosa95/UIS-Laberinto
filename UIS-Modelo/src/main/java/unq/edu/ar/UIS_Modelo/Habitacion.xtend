@@ -8,16 +8,16 @@ import org.uqbar.commons.utils.TransactionalAndObservable
 @TransactionalAndObservable
 class Habitacion {
 	
-	var String id 
+	var String nombre 
 	var List<Accion> acciones
 	var List<Habitacion> vecinas
 	var List<String> itemsDisponibles
 	var String itemUtilizable
 	var Disponibilidad estaDisponible
 	
-	//TODO new(String id, String itemUtilizable, Disponibilidad disponibilidad){
+
 	new(String id, Disponibilidad disponibilidad){
-		this.id = id
+		this.nombre = id
 		this.vecinas = newArrayList()
 		this.itemsDisponibles = newArrayList()
 		this.itemUtilizable = itemUtilizable

@@ -12,7 +12,7 @@ class Inventario {
 	Integer idInventario
 	Laberinto laberinto
 	Usuario usuario
-	List<String> items
+	List<Item> items
 	
 	new (Laberinto laberinto){
 		this.laberinto = laberinto
@@ -20,12 +20,12 @@ class Inventario {
 		this.items = newArrayList()
 	}
 	
-	def agregarItem(String item){
+	def agregarItem(Item item){
 		if (items.size < 15) items.add(item)
 		else {throw new UserException("El inventario esta lleno")} 
 	}
 	
-	def eliminarItem(String item){
+	def eliminarItem(Item item){
 		items.remove(item)
 	}
 	

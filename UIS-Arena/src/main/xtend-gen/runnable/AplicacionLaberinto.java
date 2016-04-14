@@ -1,4 +1,4 @@
-package aplicacion;
+package runnable;
 
 import aplicationModel.GatoEncerradoAppModel;
 import java.util.Collections;
@@ -12,6 +12,7 @@ import unq.edu.ar.UIS_Modelo.Accion;
 import unq.edu.ar.UIS_Modelo.Disponibilidad;
 import unq.edu.ar.UIS_Modelo.Habitacion;
 import unq.edu.ar.UIS_Modelo.Laberinto;
+import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos;
 import unq.edu.ar.UIS_Modelo.Usuario;
 import view.GatoEncerradoWindow;
 
@@ -22,13 +23,15 @@ public class AplicacionLaberinto extends Application {
     {
       GatoEncerradoAppModel gatoEncerradoModel = new GatoEncerradoAppModel();
       Usuario _administrador = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto1 = new Laberinto("Casa embrujada", _administrador);
+      final SistemaDeLaberintos sistema = new SistemaDeLaberintos(_administrador);
       Usuario _administrador_1 = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto2 = new Laberinto("Museo en la noche", _administrador_1);
+      final Laberinto laberinto1 = new Laberinto("Casa embrujada", _administrador_1);
       Usuario _administrador_2 = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto3 = new Laberinto("Pueblo Fantasma", _administrador_2);
+      final Laberinto laberinto2 = new Laberinto("Museo en la noche", _administrador_2);
       Usuario _administrador_3 = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto4 = new Laberinto("Escape del Cementerio", _administrador_3);
+      final Laberinto laberinto3 = new Laberinto("Pueblo Fantasma", _administrador_3);
+      Usuario _administrador_4 = gatoEncerradoModel.getAdministrador();
+      final Laberinto laberinto4 = new Laberinto("Escape del Cementerio", _administrador_4);
       Habitacion habitacion1 = new Habitacion("Recibidor", Disponibilidad.DISPONIBLE);
       Habitacion habitacion2 = new Habitacion("Comedor", Disponibilidad.NO_DISPONIBLE);
       Habitacion habitacion3 = new Habitacion("Cocina", Disponibilidad.DISPONIBLE);
@@ -120,7 +123,7 @@ public class AplicacionLaberinto extends Application {
       laberinto4.agregarHabitacion(habitacion10);
       laberinto4.agregarHabitacion(habitacion11);
       laberinto4.agregarHabitacion(habitacion12);
-      List<Laberinto> _laberintos = gatoEncerradoModel.getLaberintos();
+      List<Laberinto> _laberintos = sistema.getLaberintos();
       final Procedure1<List<Laberinto>> _function_4 = new Procedure1<List<Laberinto>>() {
         public void apply(final List<Laberinto> it) {
           it.add(laberinto1);

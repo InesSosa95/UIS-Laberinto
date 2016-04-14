@@ -23,13 +23,11 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	new(WindowOwner parent, GatoEncerradoAppModel model) {
 		super(parent, model)
 		title = "Aca hay gato encerrado..."
-		//taskDescription = "Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos"  
+		taskDescription = "Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos"  
 	}
 	
 	override createContents(Panel mainPanel) {
 	 
-	 
-	
 	 
 	 new Label(mainPanel) => [
 			width = 1000
@@ -47,7 +45,6 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 			]
 			
 	new Label(mainPanel) => [
-			//width = 50
 			height = 20
 			]
 			
@@ -65,7 +62,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					
 					
       				new List<Laberinto>(panelLaberintos) => [
-            		(items <=> "laberintos").adapter = new PropertyAdapter(typeof(Laberinto), "nombreLaberinto")
+            		(items <=> "sistema.laberintos").adapter = new PropertyAdapter(typeof(Laberinto), "nombreLaberinto")
             		value <=> "laberintoSeleccionado"
             		width = 220
             		height = 220
@@ -82,13 +79,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 						width = 140
 			 			onClick [ | crearLaberinto]
 						]
-						
-						/*
-						new Button(panelOpciones) => [
-						setCaption("Cancelar")
-						onClick [|enviarDenuncia]
-		]				*/
-						
+												
 					
 						new Button(panelOpcionesLaberintos) => [
 						setCaption("Eliminar Laberinto")
@@ -121,7 +112,6 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					]
 					
 					new Label(panelHabitaciones) => [
-						//espacio
 						height = 20
 					
 					]
