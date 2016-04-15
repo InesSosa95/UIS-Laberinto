@@ -24,22 +24,20 @@ import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.ListBuilder;
 import org.uqbar.lacar.ui.model.bindings.Binding;
+import unq.edu.ar.UIS_Modelo.Disponibilidad;
 import unq.edu.ar.UIS_Modelo.Habitacion;
 import unq.edu.ar.UIS_Modelo.Laberinto;
+import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos;
 import unq.edu.ar.UIS_Modelo.Usuario;
+import view.CrearHabitacionWindow;
 import view.CrearLaberintoWindow;
+import view.EliminarLaberintoWindow;
 
 @SuppressWarnings("all")
 public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
-  public GatoEncerradoWindow(final WindowOwner parent, final GatoEncerradoAppModel model) {
-    super(parent, model);
+  public GatoEncerradoWindow(final WindowOwner owner, final GatoEncerradoAppModel model) {
+    super(owner, model);
     this.setTitle("Aca hay gato encerrado...");
-    GatoEncerradoAppModel _modelObject = this.getModelObject();
-    Usuario _administrador = _modelObject.getAdministrador();
-    String _nombreUsuario = _administrador.getNombreUsuario();
-    String _plus = ("Hola " + _nombreUsuario);
-    String _plus_1 = (_plus + "! Administrá todos tus laberintos");
-    this.setTaskDescription(_plus_1);
   }
   
   public void createContents(final Panel mainPanel) {
@@ -129,7 +127,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
         it.setWidth(140);
         final Action _function = new Action() {
           public void execute() {
-            GatoEncerradoWindow.this.close();
+            GatoEncerradoWindow.this.eliminarLaberinto();
           }
         };
         it.onClick(_function);
@@ -140,7 +138,6 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     Label _label_4 = new Label(panelHabitaciones);
     final Procedure1<Label> _function_7 = new Procedure1<Label>() {
       public void apply(final Label it) {
-        it.<Object, ControlBuilder>bindValueToProperty("laberintoSeleccionado.nombreLaberinto");
         it.setHeight(15);
         it.setFontSize(10);
       }
@@ -176,7 +173,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
       public void apply(final List<Habitacion> it) {
         ObservableItems<Selector<Habitacion>, Habitacion, ListBuilder<Habitacion>> _items = it.items();
         Binding _spaceship = ArenaXtendExtensions.operator_spaceship(_items, "laberintoSeleccionado.habitaciones");
-        PropertyAdapter _propertyAdapter = new PropertyAdapter(Habitacion.class, "id");
+        PropertyAdapter _propertyAdapter = new PropertyAdapter(Habitacion.class, "nombreHabitacion");
         _spaceship.setAdapter(_propertyAdapter);
         ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
         ArenaXtendExtensions.operator_spaceship(_value, "habitacionSeleccionada");
@@ -196,7 +193,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
         it.setWidth(140);
         final Action _function = new Action() {
           public void execute() {
-            GatoEncerradoWindow.this.close();
+            GatoEncerradoWindow.this.crearHabitacion();
           }
         };
         it.onClick(_function);
@@ -222,7 +219,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     Label _label_7 = new Label(panelAcciones);
     final Procedure1<Label> _function_14 = new Procedure1<Label>() {
       public void apply(final Label it) {
-        it.<Object, ControlBuilder>bindValueToProperty("habitacionSeleccionada.id");
+        it.<Object, ControlBuilder>bindValueToProperty("habitacionSeleccionada.nombreHabitacion");
         it.setHeight(15);
         it.setFontSize(10);
       }
@@ -240,7 +237,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     TextBox _textBox_1 = new TextBox(panelAcciones);
     final Procedure1<TextBox> _function_16 = new Procedure1<TextBox>() {
       public void apply(final TextBox it) {
-        it.<Object, ControlBuilder>bindValueToProperty("habitacionSeleccionada.id");
+        it.<Object, ControlBuilder>bindValueToProperty("habitacionSeleccionada.nombreHabitacion");
         it.setHeight(15);
         it.setFontSize(10);
         it.setWidth(100);
@@ -321,20 +318,75 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
   
   public void crearLaberinto() {
     GatoEncerradoAppModel _modelObject = this.getModelObject();
-    Laberinto _laberintoSeleccionado = _modelObject.getLaberintoSeleccionado();
-    CrearLaberintoWindow _crearLaberintoWindow = new CrearLaberintoWindow(this, _laberintoSeleccionado);
+    Usuario _administrador = _modelObject.getAdministrador();
+    Laberinto _laberinto = new Laberinto("LaberintoNuevo", _administrador);
+    CrearLaberintoWindow _crearLaberintoWindow = new CrearLaberintoWindow(this, _laberinto);
     this.openDialog(_crearLaberintoWindow);
+  }
+  
+  public void eliminarLaberinto() {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    _modelObject.chequearExistenciaDeLaberinto();
+    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
+    Laberinto _laberintoSeleccionado = _modelObject_1.getLaberintoSeleccionado();
+    EliminarLaberintoWindow _eliminarLaberintoWindow = new EliminarLaberintoWindow(this, _laberintoSeleccionado);
+    this.openDialog(_eliminarLaberintoWindow);
+  }
+  
+  public boolean agregarLaberinto(final Laberinto laberinto) {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    return _modelObject.agregarLaberinto(laberinto);
+  }
+  
+  public void validarLaberinto(final Laberinto laberinto) {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    SistemaDeLaberintos _sistema = _modelObject.getSistema();
+    _sistema.validarLaberinto(laberinto);
+  }
+  
+  public void destruirLaberinto(final Laberinto laberinto) {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    _modelObject.eliminarLaberinto(laberinto);
+    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
+    _modelObject_1.setLaberintoSeleccionado(null);
+    GatoEncerradoAppModel _modelObject_2 = this.getModelObject();
+    _modelObject_2.setHabitacionSeleccionada(null);
+    GatoEncerradoAppModel _modelObject_3 = this.getModelObject();
+    _modelObject_3.setAccionSeleccionada(null);
+  }
+  
+  public void crearHabitacion() {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    _modelObject.chequearExistenciaDeLaberinto();
+    Habitacion _habitacion = new Habitacion("HabitacionNueva", Disponibilidad.DISPONIBLE);
+    CrearHabitacionWindow _crearHabitacionWindow = new CrearHabitacionWindow(this, _habitacion);
+    this.openDialog(_crearHabitacionWindow);
+  }
+  
+  public void validarHabitacion(final Habitacion habitacion) {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    _modelObject.validarHabitacion(habitacion);
+  }
+  
+  public boolean agregarHabitacion(final Habitacion habitacion) {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    return _modelObject.agregarHabitacion(habitacion);
   }
   
   public void openDialog(final Dialog<?> dialog) {
     dialog.open();
   }
   
-  protected void addActions(final Panel arg0) {
+  protected void addActions(final Panel actionsPanel) {
     throw new UnsupportedOperationException("TODO: auto-generated method stub");
   }
   
-  protected void createFormPanel(final Panel arg0) {
+  protected void createFormPanel(final Panel mainPanel) {
     throw new UnsupportedOperationException("TODO: auto-generated method stub");
+  }
+  
+  public Usuario getAdministrador() {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    return _modelObject.getAdministrador();
   }
 }

@@ -7,12 +7,12 @@ import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.model.UserException;
-import org.uqbar.commons.utils.TransactionalAndObservable;
+import org.uqbar.commons.utils.Observable;
 import unq.edu.ar.UIS_Modelo.Laberinto;
 import unq.edu.ar.UIS_Modelo.Usuario;
 
 @Accessors
-@TransactionalAndObservable
+@Observable
 @SuppressWarnings("all")
 public class SistemaDeLaberintos {
   private List<Laberinto> laberintos;
@@ -29,15 +29,24 @@ public class SistemaDeLaberintos {
     this.administrador = admin;
   }
   
-  public void agregarLaberinto(final Laberinto laberinto) {
+  public void validarLaberinto(final Laberinto laberinto) {
+    String _nombreLaberinto = laberinto.getNombreLaberinto();
+    boolean _esVacio = this.esVacio(_nombreLaberinto);
+    if (_esVacio) {
+      throw new UserException("El nombre del laberinto no es valido");
+    }
     for (final Laberinto l : this.laberintos) {
-      String _nombreLaberinto = l.getNombreLaberinto();
-      String _nombreLaberinto_1 = laberinto.getNombreLaberinto();
-      boolean _equals = Objects.equal(_nombreLaberinto, _nombreLaberinto_1);
+      String _nombreLaberinto_1 = l.getNombreLaberinto();
+      String _nombreLaberinto_2 = laberinto.getNombreLaberinto();
+      boolean _equals = Objects.equal(_nombreLaberinto_1, _nombreLaberinto_2);
       if (_equals) {
         throw new UserException("Ya existe un laberinto con ese nombre");
       }
     }
+  }
+  
+  public boolean agregarLaberinto(final Laberinto laberinto) {
+    return this.laberintos.add(laberinto);
   }
   
   public boolean eliminarLaberinto(final Laberinto laberinto) {
@@ -57,6 +66,28 @@ public class SistemaDeLaberintos {
   
   public Usuario cambiarAdministrador(final Usuario usuario) {
     return this.administrador = usuario;
+  }
+  
+  public boolean esVacio(final String string) {
+    char[] s = string.toCharArray();
+    for (final char each : s) {
+      char[] _charArray = " ".toCharArray();
+      char _get = _charArray[0];
+      boolean _notEquals = (each != _get);
+      if (_notEquals) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  public void setLaberintoSeleccionado(final Laberinto laberinto) {
+    this.setLaberintoSeleccionado(laberinto);
+    this.actualizar();
+  }
+  
+  public Object actualizar() {
+    return null;
   }
   
   @Pure

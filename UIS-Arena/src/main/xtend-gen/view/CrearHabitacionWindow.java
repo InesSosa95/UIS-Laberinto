@@ -13,21 +13,21 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.xtend.ArenaXtendExtensions;
 import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
-import unq.edu.ar.UIS_Modelo.Laberinto;
+import unq.edu.ar.UIS_Modelo.Habitacion;
 import view.GatoEncerradoWindow;
 
 @SuppressWarnings("all")
-public class CrearLaberintoWindow extends TransactionalDialog<Laberinto> {
-  public CrearLaberintoWindow(final WindowOwner owner, final Laberinto model) {
+public class CrearHabitacionWindow extends TransactionalDialog<Habitacion> {
+  public CrearHabitacionWindow(final WindowOwner owner, final Habitacion model) {
     super(owner, model);
   }
   
   protected void createFormPanel(final Panel mainPanel) {
-    this.setTitle("Creando Laberinto");
+    this.setTitle("Creando Habitacion");
     Label _label = new Label(mainPanel);
     final Procedure1<Label> _function = new Procedure1<Label>() {
       public void apply(final Label it) {
-        it.setText("Ingrese un nombre para su laberinto");
+        it.setText("Ingrese un nombre para su habitacion");
         it.setWidth(230);
         it.setHeight(15);
       }
@@ -37,7 +37,7 @@ public class CrearLaberintoWindow extends TransactionalDialog<Laberinto> {
     final Procedure1<TextBox> _function_1 = new Procedure1<TextBox>() {
       public void apply(final TextBox it) {
         ObservableValue<Control, ControlBuilder> _value = it.<ControlBuilder>value();
-        ArenaXtendExtensions.operator_spaceship(_value, "nombreLaberinto");
+        ArenaXtendExtensions.operator_spaceship(_value, "nombreHabitacion");
         it.setWidth(100);
         it.setHeight(20);
       }
@@ -52,7 +52,7 @@ public class CrearLaberintoWindow extends TransactionalDialog<Laberinto> {
         it.setCaption("Aceptar");
         final Action _function = new Action() {
           public void execute() {
-            CrearLaberintoWindow.this.agregarLaberinto();
+            CrearHabitacionWindow.this.agregarHabitacion();
           }
         };
         it.onClick(_function);
@@ -67,7 +67,7 @@ public class CrearLaberintoWindow extends TransactionalDialog<Laberinto> {
         it.setCaption("Cancelar");
         final Action _function = new Action() {
           public void execute() {
-            CrearLaberintoWindow.this.cancel();
+            CrearHabitacionWindow.this.cancel();
           }
         };
         it.onClick(_function);
@@ -76,14 +76,14 @@ public class CrearLaberintoWindow extends TransactionalDialog<Laberinto> {
     ObjectExtensions.<Button>operator_doubleArrow(_button_1, _function_1);
   }
   
-  public GatoEncerradoWindow agregarLaberinto() {
+  public GatoEncerradoWindow agregarHabitacion() {
     GatoEncerradoWindow _xblockexpression = null;
     {
       WindowOwner _owner = this.getOwner();
       final Procedure1<GatoEncerradoWindow> _function = new Procedure1<GatoEncerradoWindow>() {
         public void apply(final GatoEncerradoWindow it) {
-          Laberinto _modelObject = CrearLaberintoWindow.this.getModelObject();
-          it.validarLaberinto(_modelObject);
+          Habitacion _modelObject = CrearHabitacionWindow.this.getModelObject();
+          it.validarHabitacion(_modelObject);
         }
       };
       ObjectExtensions.<GatoEncerradoWindow>operator_doubleArrow(
@@ -92,8 +92,8 @@ public class CrearLaberintoWindow extends TransactionalDialog<Laberinto> {
       WindowOwner _owner_1 = this.getOwner();
       final Procedure1<GatoEncerradoWindow> _function_1 = new Procedure1<GatoEncerradoWindow>() {
         public void apply(final GatoEncerradoWindow it) {
-          Laberinto _modelObject = CrearLaberintoWindow.this.getModelObject();
-          it.agregarLaberinto(_modelObject);
+          Habitacion _modelObject = CrearHabitacionWindow.this.getModelObject();
+          it.agregarHabitacion(_modelObject);
         }
       };
       _xblockexpression = ObjectExtensions.<GatoEncerradoWindow>operator_doubleArrow(

@@ -3,12 +3,13 @@ package unq.edu.ar.UIS_Modelo
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.TransactionalAndObservable
+import org.uqbar.commons.utils.Observable
 
 @Accessors
-@TransactionalAndObservable
+@Observable
 class Habitacion {
 	
-	var String nombre 
+	var String nombreHabitacion
 	var List<Accion> acciones
 	var List<Habitacion> vecinas
 	var List<String> itemsDisponibles
@@ -17,7 +18,7 @@ class Habitacion {
 	
 
 	new(String id, Disponibilidad disponibilidad){
-		this.nombre = id
+		this.nombreHabitacion = id
 		this.vecinas = newArrayList()
 		this.itemsDisponibles = newArrayList()
 		this.itemUtilizable = itemUtilizable
@@ -29,8 +30,21 @@ class Habitacion {
 		vecinas.contains(habitacion)
 	}
 	
+	def eliminarAccion(Accion accion){
+		this.acciones.remove(accion)
+		
+		}
+		
+	def eliminarAcciones(){
+		this.acciones.removeAll()
+	}
+	
+	
+	
 	def eliminarItem(Item item) {
 		this.itemsDisponibles.remove(item)
 	}
+	
+	
 	
 }

@@ -1,9 +1,7 @@
 package runnable;
 
 import aplicationModel.GatoEncerradoAppModel;
-import java.util.Collections;
 import java.util.List;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.uqbar.arena.Application;
@@ -25,13 +23,13 @@ public class AplicacionLaberinto extends Application {
       Usuario _administrador = gatoEncerradoModel.getAdministrador();
       final SistemaDeLaberintos sistema = new SistemaDeLaberintos(_administrador);
       Usuario _administrador_1 = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto1 = new Laberinto("Casa embrujada", _administrador_1);
+      final Laberinto laberinto1 = new Laberinto("Casa embrujada", _administrador_1, sistema);
       Usuario _administrador_2 = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto2 = new Laberinto("Museo en la noche", _administrador_2);
+      final Laberinto laberinto2 = new Laberinto("Museo en la noche", _administrador_2, sistema);
       Usuario _administrador_3 = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto3 = new Laberinto("Pueblo Fantasma", _administrador_3);
+      final Laberinto laberinto3 = new Laberinto("Pueblo Fantasma", _administrador_3, sistema);
       Usuario _administrador_4 = gatoEncerradoModel.getAdministrador();
-      final Laberinto laberinto4 = new Laberinto("Escape del Cementerio", _administrador_4);
+      final Laberinto laberinto4 = new Laberinto("Escape del Cementerio", _administrador_4, sistema);
       Habitacion habitacion1 = new Habitacion("Recibidor", Disponibilidad.DISPONIBLE);
       Habitacion habitacion2 = new Habitacion("Comedor", Disponibilidad.NO_DISPONIBLE);
       Habitacion habitacion3 = new Habitacion("Cocina", Disponibilidad.DISPONIBLE);
@@ -99,9 +97,20 @@ public class AplicacionLaberinto extends Application {
         }
       };
       ObjectExtensions.<List<Accion>>operator_doubleArrow(_acciones_2, _function_2);
-      habitacion4.setAcciones(Collections.<Accion>unmodifiableList(CollectionLiterals.<Accion>newArrayList(accion14, accion15, accion16, accion17, accion18, accion19)));
-      List<Accion> _acciones_3 = habitacion5.getAcciones();
+      List<Accion> _acciones_3 = habitacion4.getAcciones();
       final Procedure1<List<Accion>> _function_3 = new Procedure1<List<Accion>>() {
+        public void apply(final List<Accion> it) {
+          it.add(accion14);
+          it.add(accion15);
+          it.add(accion16);
+          it.add(accion17);
+          it.add(accion18);
+          it.add(accion19);
+        }
+      };
+      ObjectExtensions.<List<Accion>>operator_doubleArrow(_acciones_3, _function_3);
+      List<Accion> _acciones_4 = habitacion5.getAcciones();
+      final Procedure1<List<Accion>> _function_4 = new Procedure1<List<Accion>>() {
         public void apply(final List<Accion> it) {
           it.add(accion20);
           it.add(accion21);
@@ -110,7 +119,7 @@ public class AplicacionLaberinto extends Application {
           it.add(accion24);
         }
       };
-      ObjectExtensions.<List<Accion>>operator_doubleArrow(_acciones_3, _function_3);
+      ObjectExtensions.<List<Accion>>operator_doubleArrow(_acciones_4, _function_4);
       laberinto1.agregarHabitacion(habitacion1);
       laberinto1.agregarHabitacion(habitacion2);
       laberinto1.agregarHabitacion(habitacion3);
@@ -123,8 +132,10 @@ public class AplicacionLaberinto extends Application {
       laberinto4.agregarHabitacion(habitacion10);
       laberinto4.agregarHabitacion(habitacion11);
       laberinto4.agregarHabitacion(habitacion12);
-      List<Laberinto> _laberintos = sistema.getLaberintos();
-      final Procedure1<List<Laberinto>> _function_4 = new Procedure1<List<Laberinto>>() {
+      gatoEncerradoModel.setSistema(sistema);
+      SistemaDeLaberintos _sistema = gatoEncerradoModel.getSistema();
+      List<Laberinto> _laberintos = _sistema.getLaberintos();
+      final Procedure1<List<Laberinto>> _function_5 = new Procedure1<List<Laberinto>>() {
         public void apply(final List<Laberinto> it) {
           it.add(laberinto1);
           it.add(laberinto2);
@@ -132,7 +143,7 @@ public class AplicacionLaberinto extends Application {
           it.add(laberinto4);
         }
       };
-      ObjectExtensions.<List<Laberinto>>operator_doubleArrow(_laberintos, _function_4);
+      ObjectExtensions.<List<Laberinto>>operator_doubleArrow(_laberintos, _function_5);
       _xblockexpression = new GatoEncerradoWindow(this, gatoEncerradoModel);
     }
     return _xblockexpression;

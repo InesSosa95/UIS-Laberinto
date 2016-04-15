@@ -4,18 +4,22 @@ import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
+import org.eclipse.xtext.xbase.lib.CollectionExtensions;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.model.UserException;
-import org.uqbar.commons.utils.TransactionalAndObservable;
+import org.uqbar.commons.utils.Observable;
 import unq.edu.ar.UIS_Modelo.Habitacion;
 import unq.edu.ar.UIS_Modelo.Item;
+import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos;
 import unq.edu.ar.UIS_Modelo.Usuario;
 
 @Accessors
-@TransactionalAndObservable
+@Observable
 @SuppressWarnings("all")
 public class Laberinto {
+  private SistemaDeLaberintos sistema;
+  
   private String nombreLaberinto;
   
   private List<Habitacion> habitaciones;
@@ -28,6 +32,16 @@ public class Laberinto {
   
   private List<Item> items;
   
+  public Laberinto() {
+    this.nombreLaberinto = "estoNoDeberiaPasar";
+    ArrayList<Habitacion> _newArrayList = CollectionLiterals.<Habitacion>newArrayList();
+    this.habitaciones = _newArrayList;
+    ArrayList<Item> _newArrayList_1 = CollectionLiterals.<Item>newArrayList();
+    this.items = _newArrayList_1;
+    this.habitacionInicial = null;
+    this.habitacionFinal = null;
+  }
+  
   public Laberinto(final String nombre, final Usuario admin) {
     this.nombreLaberinto = nombre;
     this.administrador = admin;
@@ -37,6 +51,18 @@ public class Laberinto {
     this.items = _newArrayList_1;
     this.habitacionInicial = null;
     this.habitacionFinal = null;
+  }
+  
+  public Laberinto(final String nombre, final Usuario admin, final SistemaDeLaberintos sistema) {
+    this.nombreLaberinto = nombre;
+    this.administrador = admin;
+    ArrayList<Habitacion> _newArrayList = CollectionLiterals.<Habitacion>newArrayList();
+    this.habitaciones = _newArrayList;
+    ArrayList<Item> _newArrayList_1 = CollectionLiterals.<Item>newArrayList();
+    this.items = _newArrayList_1;
+    this.habitacionInicial = null;
+    this.habitacionFinal = null;
+    this.sistema = sistema;
   }
   
   public Habitacion setHabitacionInicial(final Habitacion habitacion) {
@@ -84,17 +110,15 @@ public class Laberinto {
   }
   
   public boolean agregarHabitacion(final Habitacion habitacion) {
-    boolean _xifexpression = false;
-    boolean _contains = this.habitaciones.contains(habitacion);
-    boolean _not = (!_contains);
-    if (_not) {
-      _xifexpression = this.habitaciones.add(habitacion);
-    }
-    return _xifexpression;
+    return this.habitaciones.add(habitacion);
   }
   
   public boolean eliminarHabitacion(final Habitacion habitacion) {
     return this.habitaciones.remove(habitacion);
+  }
+  
+  public boolean eliminarHabitaciones() {
+    return CollectionExtensions.<Habitacion>removeAll(this.habitaciones);
   }
   
   public boolean agregarItem(final Item item) {
@@ -116,6 +140,44 @@ public class Laberinto {
       }
     }
     return null;
+  }
+  
+  public void validarHabitacion(final Habitacion habitacion) {
+    String _nombreHabitacion = habitacion.getNombreHabitacion();
+    boolean _esVacio = this.esVacio(_nombreHabitacion);
+    if (_esVacio) {
+      throw new UserException("El nombre de la habitacion no es valido");
+    }
+    for (final Habitacion h : this.habitaciones) {
+      String _nombreHabitacion_1 = h.getNombreHabitacion();
+      String _nombreHabitacion_2 = habitacion.getNombreHabitacion();
+      boolean _equals = Objects.equal(_nombreHabitacion_1, _nombreHabitacion_2);
+      if (_equals) {
+        throw new UserException("Ya existe una habitacion con ese nombre");
+      }
+    }
+  }
+  
+  public boolean esVacio(final String string) {
+    char[] s = string.toCharArray();
+    for (final char each : s) {
+      char[] _charArray = " ".toCharArray();
+      char _get = _charArray[0];
+      boolean _notEquals = (each != _get);
+      if (_notEquals) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  @Pure
+  public SistemaDeLaberintos getSistema() {
+    return this.sistema;
+  }
+  
+  public void setSistema(final SistemaDeLaberintos sistema) {
+    this.sistema = sistema;
   }
   
   @Pure

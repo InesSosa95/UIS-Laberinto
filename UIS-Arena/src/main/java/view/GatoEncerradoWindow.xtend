@@ -17,13 +17,16 @@ import unq.edu.ar.UIS_Modelo.Laberinto
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.windows.Dialog
 import aplicationModel.GatoEncerradoAppModel
+import org.uqbar.arena.windows.MainWindow
+import unq.edu.ar.UIS_Modelo.Disponibilidad
 
 class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	
-	new(WindowOwner parent, GatoEncerradoAppModel model) {
-		super(parent, model)
+	new(WindowOwner owner, GatoEncerradoAppModel model) {
+		super(owner,model)
+		
 		title = "Aca hay gato encerrado..."
-		taskDescription = "Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos"  
+		//taskDescription = "Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos"  
 	}
 	
 	override createContents(Panel mainPanel) {
@@ -85,14 +88,14 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 						setCaption("Eliminar Laberinto")
 						fontSize = 11
 						width = 140
-			 			onClick [ | close]
+			 			onClick [ | eliminarLaberinto]
 						]
 					 
 				
 				val panelHabitaciones = new Panel(panelOpciones)
 				
 					new Label(panelHabitaciones) => [
-						bindValueToProperty("laberintoSeleccionado.nombreLaberinto")
+						//bindValueToProperty("sistema.laberintoSeleccionado.nombreLaberinto")
 						height = 15
 						fontSize = 10
 						]
@@ -105,6 +108,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					]
 					
 					new TextBox(panelHabitaciones) => [
+						//value <=> "sistema.laberintoSeleccionado.nombreLaberinto"
 						bindValueToProperty("laberintoSeleccionado.nombreLaberinto")
 						height = 15
 						fontSize = 10
@@ -118,7 +122,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					
 					
 					new List<Habitacion>(panelHabitaciones)=> [
-						(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(typeof(Habitacion), "id")
+						(items <=> "laberintoSeleccionado.habitaciones").adapter = new PropertyAdapter(typeof(Habitacion), "nombreHabitacion")
             		value <=> "habitacionSeleccionada"
 						width = 300
 						height = 200
@@ -132,7 +136,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 						setCaption("Agregar Habitacion")
 						fontSize = 11
 						width = 140
-			 			onClick [ | close]
+			 			onClick [ | crearHabitacion]
 						]
 					
 					new Button(panelOpcionesHabitacion) => [
@@ -147,7 +151,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 				
 				
 				new Label(panelAcciones) => [
-						bindValueToProperty("habitacionSeleccionada.id")
+						bindValueToProperty("habitacionSeleccionada.nombreHabitacion")
 						height = 15
 						fontSize = 10
 						
@@ -161,7 +165,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					] 
 					
 					new TextBox(panelAcciones) => [
-						bindValueToProperty("habitacionSeleccionada.id")
+						bindValueToProperty("habitacionSeleccionada.nombreHabitacion")
 						height = 15
 						fontSize = 10
 						width = 100
@@ -217,214 +221,9 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					
 			
 			
-			
-			//new Label(panelOpciones) => [
-			//bindValueToProperty("estadisticaSeleccionada.personaje.nombre")
-			
-			
-			//bindValueToProperty("nombrePersonaje")
-			
-			
-			//setBackground(Color.BLACK)
-			//width = 600
-			//height = 10
-			//fontSize = 15
-		    //setForeground(Color.WHITE)
-			//]
-			
-			//val panelIrAHabitacion = new Panel(panelOpciones2)
-			
-			/*
-			
-			new Label(panelOpciones) => [
-			width = 50
-			]
-			
-			new Button(panelOpciones) => [
-			setCaption("Agregar accion de ir a otra habitacion")
-			fontSize = 8
-			 onClick [ | close]
-			]
-			
-			new Label(panelOpciones) => [
-			width = 50
-			]
-			
-			new Button(panelOpciones) => [
-			setCaption("Agregar accion de ir a otra habitacion")
-			fontSize = 8
-			 onClick [ | close]
-			]
-			
-			new Label(panelOpciones) => [
-			width = 50
-			]
-			
-			new Button(panelOpciones) => [
-			setCaption("Agregar accion de ir a otra habitacion")
-			fontSize = 8
-			 onClick [ | close]
-			]
-			
-			new Label(panelOpciones) => [
-			width = 50
-			]
-			 */
-			
-			
-			/*
-			new Label(panelOpciones2) => [
-			setText("cantidad de Duelos: ")
-			fontSize = 15
-			] 
-			
-			new Label(panelPartidas) => [
-			//bindValueToProperty("estadisticaSeleccionada.vecesQueInicio")
-			
-			
-			//bindValueToProperty("vecesQueInicio")
-			
-			
-			fontSize = 15
-			]
-			
-			val panelKills = new Panel(mainPanel)
-			panelKills.setLayout(new HorizontalLayout)
-			
-			new Label(panelKills) => [
-			setText("Kills: ")
-			fontSize = 15
-			]
-			
-			new Label(panelKills) => [
-			//bindValueToProperty("estadisticaSeleccionada.kills")
-			
-			
-			//bindValueToProperty("kills")
-			
-			
-			fontSize = 15
-			]
-			
-			
-			val panelDeads = new Panel(mainPanel)
-			panelDeads.setLayout(new HorizontalLayout)
-			
-			new Label(panelDeads) => [
-			setText("Deads: ")
-			fontSize = 15
-			]
-			
-			new Label(panelDeads) => [
-			//bindValueToProperty("estadisticaSeleccionada.deads")
-			
-			
-			//bindValueToProperty("deads")
-			
-			
-			fontSize = 15
-			]
-			
-			val panelAssist = new Panel(mainPanel)
-			panelAssist.setLayout(new HorizontalLayout)
-			
-			new Label(panelAssist) => [
-			setText("Assists: ")
-			fontSize = 15
-			]
-			
-			new Label(panelAssist) => [
-			//bindValueToProperty("estadisticaSeleccionada.assists")
-			
-			
-			//bindValueToProperty("assist")
-			
-			
-			fontSize = 15
-			]
-			
-			
-			val panelVictorias = new Panel(mainPanel)
-			panelVictorias.setLayout(new HorizontalLayout)
-			
-			new Label(panelVictorias) => [
-			setText("Victorias: ")
-			fontSize = 15
-			]
-			
-			new Label(panelVictorias) => [
-			//bindValueToProperty("estadisticaSeleccionada.victorias")
-			
-			
-			//bindValueToProperty("victorias")
-			
-			
-			fontSize = 15
-			]
-			
-			val panelMejorLinea = new Panel(mainPanel)
-			panelMejorLinea.setLayout(new HorizontalLayout)
-			
-			new Label(panelMejorLinea) => [
-			setText("Mejor Linea: ")
-			fontSize = 15
-			]
-			
-			new Label(panelMejorLinea) => [
-			//bindValueToProperty("estadisticaSeleccionada.mejorLinea")
-			
-			
-			//bindValueToProperty("mejorLinea")
-			
-			
-			fontSize = 15
-			]
-			
-			val panelUbicaciones = new Panel(mainPanel)
-			panelUbicaciones.setLayout(new HorizontalLayout)
-			
-			new Label(panelUbicaciones) => [
-			setText("Ubicaciones: ")
-			fontSize = 15
-			]
-			
-			new List(panelUbicaciones) => [
-			//bindValueToProperty("estadisticaSeleccionada.ubicaciones")
-			
-			
-			//bindValueToProperty("ubicaciones")
-			
-			
-			]
-			
-			val panelCalificacion = new Panel(mainPanel)
-			panelCalificacion.setLayout(new HorizontalLayout)
-			
-			new Label(panelCalificacion) => [
-			setText("Calificacion: ")
-			fontSize = 15
-			]
-			
-			new Label(panelCalificacion) => [
-			//bindValueToProperty("estadisticaSeleccionada.calificacionEnDuelo")
-			
-			
-			//bindValueToProperty("calificacionEnDuelo")
-			
-			
-			fontSize = 15
-			]
-			
-			new Button(mainPanel) => [
-			setCaption("Volver")
-			fontSize = 8
-			 onClick [ | close]
-			]
-			
-	
-	
-	*/
 	}
+	
+	
 	
 	
 	
@@ -440,22 +239,61 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 
 
 	def crearLaberinto(){
-		this.openDialog(new CrearLaberintoWindow(this, modelObject.laberintoSeleccionado))
+		this.openDialog(new CrearLaberintoWindow(this, new Laberinto("LaberintoNuevo", modelObject.administrador)))
+		//this.openDialog(new CrearLaberintoWindow(this))
 	}
+	
+	def eliminarLaberinto(){
+		modelObject.chequearExistenciaDeLaberinto()
+		this.openDialog(new EliminarLaberintoWindow(this, modelObject.laberintoSeleccionado))
+	}
+	
+	
+	def agregarLaberinto(Laberinto laberinto){
+		modelObject.agregarLaberinto(laberinto)
+	}
+	
+	def validarLaberinto(Laberinto laberinto){
+		modelObject.sistema.validarLaberinto(laberinto)
+	}
+	
+	def destruirLaberinto(Laberinto laberinto){
+		modelObject.eliminarLaberinto(laberinto)
+		modelObject.laberintoSeleccionado = null
+		modelObject.habitacionSeleccionada = null
+		modelObject.accionSeleccionada = null
+		}
+	
+	def crearHabitacion() {
+		modelObject.chequearExistenciaDeLaberinto
+		this.openDialog(new CrearHabitacionWindow(this, new Habitacion("HabitacionNueva", Disponibilidad.DISPONIBLE)))
+	}
+	
+	def validarHabitacion(Habitacion habitacion){
+		this.modelObject.validarHabitacion(habitacion)
+	}
+	
+	def agregarHabitacion(Habitacion habitacion){
+		this.modelObject.agregarHabitacion(habitacion)
+	}
+	
 
 	def openDialog(Dialog<?> dialog) {
 		//dialog.onAccept[|modelObject.crearDenuncia()]
 		dialog.open
 	}
-
 	
-override protected addActions(Panel arg0) {
-	throw new UnsupportedOperationException("TODO: auto-generated method stub")
-}
-
-override protected createFormPanel(Panel arg0) {
-	throw new UnsupportedOperationException("TODO: auto-generated method stub")
-}
+	override protected addActions(Panel actionsPanel) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
 	
+	override protected createFormPanel(Panel mainPanel) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+
+	def getAdministrador(){
+		modelObject.administrador
+	}
+
 	
 }

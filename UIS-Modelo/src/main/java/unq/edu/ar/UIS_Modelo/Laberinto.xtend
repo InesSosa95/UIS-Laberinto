@@ -4,18 +4,29 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.TransactionalAndObservable
+import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.Observable
 
 @Accessors
-@TransactionalAndObservable
-class Laberinto {
+@Observable
+class Laberinto { //extends Entity{
 	
-	String nombreLaberinto
-	List<Habitacion> habitaciones
-	Habitacion habitacionInicial
-	Habitacion habitacionFinal
-	Usuario administrador
-	List<Item> items
+	SistemaDeLaberintos sistema
 	
+	var String nombreLaberinto
+	var List<Habitacion> habitaciones
+	var Habitacion habitacionInicial
+	var Habitacion habitacionFinal
+	var Usuario administrador
+	var List<Item> items
+	
+	new(){
+		nombreLaberinto = "estoNoDeberiaPasar"
+		habitaciones = newArrayList
+		items = newArrayList
+		habitacionInicial = null
+		habitacionFinal = null
+	}
 	
 	new(String nombre, Usuario admin){
 		nombreLaberinto = nombre
@@ -25,6 +36,17 @@ class Laberinto {
 		habitacionInicial = null
 		habitacionFinal = null
 	}
+	
+	new(String nombre, Usuario admin, SistemaDeLaberintos sistema){
+		nombreLaberinto = nombre
+		administrador = admin
+		habitaciones = newArrayList
+		items = newArrayList
+		habitacionInicial = null
+		habitacionFinal = null
+		this.sistema = sistema
+	}
+	
 	
 	def setHabitacionInicial(Habitacion habitacion){
 		if(hayHabitacionInicial(habitacion) || habitacion == habitacionFinal)
@@ -46,12 +68,17 @@ class Laberinto {
 		return habitacionFinal != null
 	}
 	
+	
 	def agregarHabitacion(Habitacion habitacion){
-		if(!habitaciones.contains(habitacion)) habitaciones.add(habitacion)
+		habitaciones.add(habitacion)
 	}
 	
 	def eliminarHabitacion(Habitacion habitacion){
 		habitaciones.remove(habitacion)
+	}
+	
+	def eliminarHabitaciones(){
+		habitaciones.removeAll()
 	}
 	
 	def agregarItem(Item item){
@@ -64,5 +91,29 @@ class Laberinto {
 			if(i.nombre == item.nombre)
 				throw new UserException("El item ya existe")
 		}
-	}
+		
 }
+
+def validarHabitacion(Habitacion habitacion){
+		if(esVacio(habitacion.nombreHabitacion)){
+			throw new UserException("El nombre de la habitacion no es valido")
+		}
+		
+		for(Habitacion h: habitaciones){
+			if(h.nombreHabitacion == habitacion.nombreHabitacion)
+				throw new UserException("Ya existe una habitacion con ese nombre")
+		}
+	
+	}
+
+	def esVacio(String string){
+		var s = string.toCharArray
+		for(char each : s){
+			if(each !=  " ".toCharArray.get(0)){
+				return false
+			}
+		}
+		return true
+	}
+	
+		}

@@ -16,15 +16,14 @@ class AplicacionLaberinto extends Application{
 		
 		//ESTO AL APLICATION!!!
 		
-		
-		var gatoEncerradoModel = new GatoEncerradoAppModel
+			var gatoEncerradoModel = new GatoEncerradoAppModel
 		
 		val sistema = new SistemaDeLaberintos (gatoEncerradoModel.administrador)
 		
-		val laberinto1 = new Laberinto("Casa embrujada" ,gatoEncerradoModel.administrador)
-		val laberinto2 = new Laberinto("Museo en la noche" ,gatoEncerradoModel.administrador)
-		val laberinto3 = new Laberinto("Pueblo Fantasma" ,gatoEncerradoModel.administrador)
-		val laberinto4 = new Laberinto("Escape del Cementerio" ,gatoEncerradoModel.administrador)
+		val laberinto1 = new Laberinto("Casa embrujada" ,gatoEncerradoModel.administrador, sistema)
+		val laberinto2 = new Laberinto("Museo en la noche" ,gatoEncerradoModel.administrador, sistema)
+		val laberinto3 = new Laberinto("Pueblo Fantasma" ,gatoEncerradoModel.administrador, sistema)
+		val laberinto4 = new Laberinto("Escape del Cementerio" ,gatoEncerradoModel.administrador, sistema)
 		
 		var habitacion1 = new Habitacion("Recibidor", Disponibilidad.DISPONIBLE)
 		var habitacion2 = new Habitacion("Comedor", Disponibilidad.NO_DISPONIBLE)
@@ -88,7 +87,18 @@ class AplicacionLaberinto extends Application{
 			add(accion12)
 			add(accion13)
 		]
-		habitacion4.acciones = #[accion14,accion15,accion16,accion17,accion18,accion19]
+		//habitacion4.acciones = #[accion14,accion15,accion16,accion17,accion18,accion19]
+		
+		habitacion4.acciones => [
+			add(accion14)
+			add(accion15)
+			add(accion16)
+			add(accion17)
+			add(accion18)
+			add(accion19)
+		]
+		
+		
 		habitacion5.acciones => [
 			add(accion20)
 			add(accion21)
@@ -114,7 +124,12 @@ class AplicacionLaberinto extends Application{
 		laberinto4.agregarHabitacion(habitacion11)
 		laberinto4.agregarHabitacion(habitacion12)
 		
-		sistema.laberintos => [
+	
+		
+		
+		gatoEncerradoModel.sistema = sistema
+		
+		gatoEncerradoModel.sistema.laberintos => [
 			add(laberinto1)
 			add(laberinto2)
 			add(laberinto3)
@@ -122,15 +137,15 @@ class AplicacionLaberinto extends Application{
 		]
 		
 		
-		
 		new GatoEncerradoWindow(this, gatoEncerradoModel)
 		
 		}
-	
-	
-	
+
 	
 	def static main(String[] args){
+		
+		
+		//new AplicacionLaberinto().startApplication
 		new AplicacionLaberinto().start
 	}
 }
