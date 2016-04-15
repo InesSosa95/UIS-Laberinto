@@ -31,6 +31,7 @@ import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos;
 import unq.edu.ar.UIS_Modelo.Usuario;
 import view.CrearHabitacionWindow;
 import view.CrearLaberintoWindow;
+import view.EliminarHabitacionWindow;
 import view.EliminarLaberintoWindow;
 
 @SuppressWarnings("all")
@@ -208,7 +209,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
         it.setWidth(140);
         final Action _function = new Action() {
           public void execute() {
-            GatoEncerradoWindow.this.close();
+            GatoEncerradoWindow.this.eliminarHabitacion();
           }
         };
         it.onClick(_function);
@@ -311,6 +312,24 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
       }
     };
     ObjectExtensions.<Button>operator_doubleArrow(_button_5, _function_22);
+  }
+  
+  public void eliminarHabitacion() {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    _modelObject.chequearExistenciaDeHabitacion();
+    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
+    Habitacion _habitacionSeleccionada = _modelObject_1.getHabitacionSeleccionada();
+    EliminarHabitacionWindow _eliminarHabitacionWindow = new EliminarHabitacionWindow(this, _habitacionSeleccionada);
+    this.openDialog(_eliminarHabitacionWindow);
+  }
+  
+  public void destruirHabitacion(final Habitacion habitacion) {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    _modelObject.eliminarHabitacion(habitacion);
+    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
+    _modelObject_1.setHabitacionSeleccionada(null);
+    GatoEncerradoAppModel _modelObject_2 = this.getModelObject();
+    _modelObject_2.setAccionSeleccionada(null);
   }
   
   public void abrirEstadistica() {

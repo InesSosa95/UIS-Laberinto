@@ -143,7 +143,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 						setCaption("Eliminar Habitacion")
 						fontSize = 11
 						width = 140
-			 			onClick [ | close]
+			 			onClick [ | eliminarHabitacion]
 						]
 					
 				
@@ -223,7 +223,16 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 			
 	}
 	
+	def eliminarHabitacion() {
+		modelObject.chequearExistenciaDeHabitacion()
+		this.openDialog(new EliminarHabitacionWindow(this, modelObject.habitacionSeleccionada))
+	}
 	
+	def destruirHabitacion(Habitacion habitacion){
+		modelObject.eliminarHabitacion(habitacion)
+		modelObject.habitacionSeleccionada = null
+		modelObject.accionSeleccionada = null
+	}
 	
 	
 	

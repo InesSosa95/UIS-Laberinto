@@ -64,6 +64,14 @@ class GatoEncerradoAppModel {
 			if(laberintoSeleccionado == null)
 			throw new UserException("No hay laberinto seleccionado")
 	}
+	
+	def chequearExistenciaDeHabitacion() {
+		if(laberintoSeleccionado.habitaciones.size()==0)
+		throw new UserException("No hay habitacion para eliminar")
+		if(habitacionSeleccionada == null)
+		throw new UserException("No hay habitacion seleccionado")
+	}
+	
 	//def laberintos(){
 	//	sistema.laberintos
 //	}

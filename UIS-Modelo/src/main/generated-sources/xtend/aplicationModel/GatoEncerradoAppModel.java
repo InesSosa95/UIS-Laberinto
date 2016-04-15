@@ -79,6 +79,19 @@ public class GatoEncerradoAppModel {
     }
   }
   
+  public void chequearExistenciaDeHabitacion() {
+    List<Habitacion> _habitaciones = this.laberintoSeleccionado.getHabitaciones();
+    int _size = _habitaciones.size();
+    boolean _equals = (_size == 0);
+    if (_equals) {
+      throw new UserException("No hay habitacion para eliminar");
+    }
+    boolean _equals_1 = Objects.equal(this.habitacionSeleccionada, null);
+    if (_equals_1) {
+      throw new UserException("No hay habitacion seleccionado");
+    }
+  }
+  
   @Pure
   public SistemaDeLaberintos getSistema() {
     return this.sistema;
