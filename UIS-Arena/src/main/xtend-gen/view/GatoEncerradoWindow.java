@@ -24,15 +24,16 @@ import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import org.uqbar.lacar.ui.model.ListBuilder;
 import org.uqbar.lacar.ui.model.bindings.Binding;
+import unq.edu.ar.UIS_Modelo.Accion;
+import unq.edu.ar.UIS_Modelo.AccionMoverDeHabitacion;
 import unq.edu.ar.UIS_Modelo.Disponibilidad;
 import unq.edu.ar.UIS_Modelo.Habitacion;
 import unq.edu.ar.UIS_Modelo.Laberinto;
 import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos;
 import unq.edu.ar.UIS_Modelo.Usuario;
+import view.AgregarHabitacionWindow;
 import view.CrearHabitacionWindow;
 import view.CrearLaberintoWindow;
-import view.EliminarHabitacionWindow;
-import view.EliminarLaberintoWindow;
 
 @SuppressWarnings("all")
 public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
@@ -290,7 +291,7 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
         it.setWidth(140);
         final Action _function = new Action() {
           public void execute() {
-            GatoEncerradoWindow.this.close();
+            GatoEncerradoWindow.this.crearAccion();
           }
         };
         it.onClick(_function);
@@ -305,7 +306,10 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
         it.setWidth(140);
         final Action _function = new Action() {
           public void execute() {
-            GatoEncerradoWindow.this.close();
+            GatoEncerradoAppModel _modelObject = GatoEncerradoWindow.this.getModelObject();
+            GatoEncerradoAppModel _modelObject_1 = GatoEncerradoWindow.this.getModelObject();
+            Accion _accionSeleccionada = _modelObject_1.getAccionSeleccionada();
+            _modelObject.eliminarAccion(_accionSeleccionada);
           }
         };
         it.onClick(_function);
@@ -314,25 +318,9 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     ObjectExtensions.<Button>operator_doubleArrow(_button_5, _function_22);
   }
   
-  public void eliminarHabitacion() {
+  public boolean eliminarHabitacion() {
     GatoEncerradoAppModel _modelObject = this.getModelObject();
-    _modelObject.chequearExistenciaDeHabitacion();
-    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
-    Habitacion _habitacionSeleccionada = _modelObject_1.getHabitacionSeleccionada();
-    EliminarHabitacionWindow _eliminarHabitacionWindow = new EliminarHabitacionWindow(this, _habitacionSeleccionada);
-    this.openDialog(_eliminarHabitacionWindow);
-  }
-  
-  public void destruirHabitacion(final Habitacion habitacion) {
-    GatoEncerradoAppModel _modelObject = this.getModelObject();
-    _modelObject.eliminarHabitacion(habitacion);
-    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
-    _modelObject_1.setHabitacionSeleccionada(null);
-    GatoEncerradoAppModel _modelObject_2 = this.getModelObject();
-    _modelObject_2.setAccionSeleccionada(null);
-  }
-  
-  public void abrirEstadistica() {
+    return _modelObject.eliminarHabitacion();
   }
   
   public void crearLaberinto() {
@@ -343,13 +331,9 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     this.openDialog(_crearLaberintoWindow);
   }
   
-  public void eliminarLaberinto() {
+  public boolean eliminarLaberinto() {
     GatoEncerradoAppModel _modelObject = this.getModelObject();
-    _modelObject.chequearExistenciaDeLaberinto();
-    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
-    Laberinto _laberintoSeleccionado = _modelObject_1.getLaberintoSeleccionado();
-    EliminarLaberintoWindow _eliminarLaberintoWindow = new EliminarLaberintoWindow(this, _laberintoSeleccionado);
-    this.openDialog(_eliminarLaberintoWindow);
+    return _modelObject.eliminarLaberinto();
   }
   
   public boolean agregarLaberinto(final Laberinto laberinto) {
@@ -363,28 +347,12 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     _sistema.validarLaberinto(laberinto);
   }
   
-  public void destruirLaberinto(final Laberinto laberinto) {
-    GatoEncerradoAppModel _modelObject = this.getModelObject();
-    _modelObject.eliminarLaberinto(laberinto);
-    GatoEncerradoAppModel _modelObject_1 = this.getModelObject();
-    _modelObject_1.setLaberintoSeleccionado(null);
-    GatoEncerradoAppModel _modelObject_2 = this.getModelObject();
-    _modelObject_2.setHabitacionSeleccionada(null);
-    GatoEncerradoAppModel _modelObject_3 = this.getModelObject();
-    _modelObject_3.setAccionSeleccionada(null);
-  }
-  
   public void crearHabitacion() {
     GatoEncerradoAppModel _modelObject = this.getModelObject();
-    _modelObject.chequearExistenciaDeLaberinto();
-    Habitacion _habitacion = new Habitacion("HabitacionNueva", Disponibilidad.DISPONIBLE);
+    Laberinto _laberintoSeleccionado = _modelObject.getLaberintoSeleccionado();
+    Habitacion _habitacion = new Habitacion("HabitacionNueva", Disponibilidad.DISPONIBLE, _laberintoSeleccionado);
     CrearHabitacionWindow _crearHabitacionWindow = new CrearHabitacionWindow(this, _habitacion);
     this.openDialog(_crearHabitacionWindow);
-  }
-  
-  public void validarHabitacion(final Habitacion habitacion) {
-    GatoEncerradoAppModel _modelObject = this.getModelObject();
-    _modelObject.validarHabitacion(habitacion);
   }
   
   public boolean agregarHabitacion(final Habitacion habitacion) {
@@ -392,20 +360,26 @@ public class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel> {
     return _modelObject.agregarHabitacion(habitacion);
   }
   
+  public void crearAccion() {
+    GatoEncerradoAppModel _modelObject = this.getModelObject();
+    Habitacion _habitacionSeleccionada = _modelObject.getHabitacionSeleccionada();
+    AccionMoverDeHabitacion _accionMoverDeHabitacion = new AccionMoverDeHabitacion(_habitacionSeleccionada);
+    AgregarHabitacionWindow _agregarHabitacionWindow = new AgregarHabitacionWindow(this, _accionMoverDeHabitacion);
+    this.openDialog(_agregarHabitacionWindow);
+  }
+  
   public void openDialog(final Dialog<?> dialog) {
     dialog.open();
   }
   
-  protected void addActions(final Panel actionsPanel) {
-    throw new UnsupportedOperationException("TODO: auto-generated method stub");
-  }
-  
   protected void createFormPanel(final Panel mainPanel) {
-    throw new UnsupportedOperationException("TODO: auto-generated method stub");
   }
   
   public Usuario getAdministrador() {
     GatoEncerradoAppModel _modelObject = this.getModelObject();
     return _modelObject.getAdministrador();
+  }
+  
+  protected void addActions(final Panel arg0) {
   }
 }

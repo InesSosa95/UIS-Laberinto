@@ -28,7 +28,6 @@ class CrearHabitacionWindow extends TransactionalDialog<Habitacion>{
 	 
 			
 			new TextBox(mainPanel) => [
-			//bindValueToProperty("nombreLaberinto")
 			value <=> "nombreHabitacion"
 			width = 100
 			height = 20
@@ -55,16 +54,8 @@ class CrearHabitacionWindow extends TransactionalDialog<Habitacion>{
 	
 	def agregarHabitacion(){
 		owner as GatoEncerradoWindow => [
-			validarHabitacion(this.modelObject)
-		]
-		this.close
-		owner as GatoEncerradoWindow => [
 			agregarHabitacion(this.modelObject)
 		]
-		//
-			//agregarLaberinto(this.modelObject)
-			//modelObject.sistema.agregarLaberinto(modelObject)
-		//]
 	}
 	
 }

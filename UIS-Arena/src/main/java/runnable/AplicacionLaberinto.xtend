@@ -25,21 +25,21 @@ class AplicacionLaberinto extends Application{
 		val laberinto3 = new Laberinto("Pueblo Fantasma" ,gatoEncerradoModel.administrador, sistema)
 		val laberinto4 = new Laberinto("Escape del Cementerio" ,gatoEncerradoModel.administrador, sistema)
 		
-		var habitacion1 = new Habitacion("Recibidor", Disponibilidad.DISPONIBLE)
-		var habitacion2 = new Habitacion("Comedor", Disponibilidad.NO_DISPONIBLE)
-		var habitacion3 = new Habitacion("Cocina", Disponibilidad.DISPONIBLE)
+		var habitacion1 = new Habitacion("Recibidor", Disponibilidad.DISPONIBLE, laberinto1)
+		var habitacion2 = new Habitacion("Comedor", Disponibilidad.NO_DISPONIBLE, laberinto1)
+		var habitacion3 = new Habitacion("Cocina", Disponibilidad.DISPONIBLE, laberinto1)
 		
-		var habitacion4 = new Habitacion("Sala de Pinturas", Disponibilidad.DISPONIBLE)
-		var habitacion5 = new Habitacion("Fosiles Prehistoricos", Disponibilidad.DISPONIBLE)
-		var habitacion6 = new Habitacion("Muñecos de Cera", Disponibilidad.DISPONIBLE)
+		var habitacion4 = new Habitacion("Sala de Pinturas", Disponibilidad.DISPONIBLE, laberinto2)
+		var habitacion5 = new Habitacion("Fosiles Prehistoricos", Disponibilidad.DISPONIBLE, laberinto2)
+		var habitacion6 = new Habitacion("Muñecos de Cera", Disponibilidad.DISPONIBLE, laberinto2)
 		
-		var habitacion7 = new Habitacion("Plaza Central", Disponibilidad.DISPONIBLE)
-		var habitacion8 = new Habitacion("Casa abandonada", Disponibilidad.DISPONIBLE)
-		var habitacion9 = new Habitacion("Bosque", Disponibilidad.DISPONIBLE)
+		var habitacion7 = new Habitacion("Plaza Central", Disponibilidad.DISPONIBLE, laberinto3)
+		var habitacion8 = new Habitacion("Casa abandonada", Disponibilidad.DISPONIBLE, laberinto3)
+		var habitacion9 = new Habitacion("Bosque", Disponibilidad.DISPONIBLE, laberinto3)
 		
-		var habitacion10 = new Habitacion("Calle central", Disponibilidad.DISPONIBLE)
-		var habitacion11 = new Habitacion("Catacumba", Disponibilidad.DISPONIBLE)
-		var habitacion12 = new Habitacion("Puerta de Entrada", Disponibilidad.NO_DISPONIBLE)
+		var habitacion10 = new Habitacion("Calle central", Disponibilidad.DISPONIBLE, laberinto4)
+		var habitacion11 = new Habitacion("Catacumba", Disponibilidad.DISPONIBLE, laberinto4)
+		var habitacion12 = new Habitacion("Puerta de Entrada", Disponibilidad.NO_DISPONIBLE, laberinto4)
 		
 		
 		val accion1 = new Accion(habitacion1)
@@ -87,7 +87,6 @@ class AplicacionLaberinto extends Application{
 			add(accion12)
 			add(accion13)
 		]
-		//habitacion4.acciones = #[accion14,accion15,accion16,accion17,accion18,accion19]
 		
 		habitacion4.acciones => [
 			add(accion14)
@@ -144,8 +143,6 @@ class AplicacionLaberinto extends Application{
 	
 	def static main(String[] args){
 		
-		
-		//new AplicacionLaberinto().startApplication
 		new AplicacionLaberinto().start
 	}
 }

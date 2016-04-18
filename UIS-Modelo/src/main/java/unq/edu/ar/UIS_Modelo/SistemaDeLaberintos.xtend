@@ -3,8 +3,6 @@ package unq.edu.ar.UIS_Modelo
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.model.UserException
-import org.uqbar.commons.utils.TransactionalAndObservable
-import scala.Char
 import org.uqbar.commons.utils.Observable
 
 @Accessors
@@ -35,6 +33,7 @@ class SistemaDeLaberintos {
 	}
 	
 	def agregarLaberinto(Laberinto laberinto){
+		validarLaberinto(laberinto)
 		laberintos.add(laberinto)
 	}
 	

@@ -85,7 +85,4 @@ public class IrAOtraHabitacionWindow extends MainWindow<Accion> {
     };
     ObjectExtensions.<Button>operator_doubleArrow(_button_1, _function_5);
   }
-  
-  public void abrirEstadistica() {
-  }
 }

@@ -1,10 +1,8 @@
 package aplicationModel;
 
-import com.google.common.base.Objects;
-import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
-import org.uqbar.commons.model.UserException;
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 import unq.edu.ar.UIS_Modelo.Accion;
 import unq.edu.ar.UIS_Modelo.Habitacion;
@@ -41,55 +39,26 @@ public class GatoEncerradoAppModel {
     return this.sistema.agregarLaberinto(laberinto);
   }
   
-  public void validarLaberinto(final Laberinto laberinto) {
-    this.sistema.validarLaberinto(laberinto);
-  }
-  
-  public boolean eliminarLaberinto(final Laberinto laberinto) {
-    boolean _xblockexpression = false;
-    {
-      this.sistema.eliminarLaberinto(laberinto);
-      _xblockexpression = Objects.equal(this.laberintoSeleccionado, null);
-    }
-    return _xblockexpression;
+  public boolean eliminarLaberinto() {
+    return this.sistema.eliminarLaberinto(this.laberintoSeleccionado);
   }
   
   public boolean agregarHabitacion(final Habitacion habitacion) {
     return this.laberintoSeleccionado.agregarHabitacion(habitacion);
   }
   
-  public boolean eliminarHabitacion(final Habitacion habitacion) {
-    return this.laberintoSeleccionado.eliminarHabitacion(habitacion);
+  public boolean eliminarHabitacion() {
+    return this.laberintoSeleccionado.eliminarHabitacion(this.habitacionSeleccionada);
   }
   
-  public void validarHabitacion(final Habitacion habitacion) {
-    this.laberintoSeleccionado.validarHabitacion(habitacion);
+  public void crearAccion() {
+    Accion _accion = new Accion(this.habitacionSeleccionada);
+    this.habitacionSeleccionada.agregarAccion(_accion);
+    ObservableUtils.firePropertyChanged(this, "toString");
   }
   
-  public void chequearExistenciaDeLaberinto() {
-    List<Laberinto> _laberintos = this.sistema.getLaberintos();
-    int _size = _laberintos.size();
-    boolean _equals = (_size == 0);
-    if (_equals) {
-      throw new UserException("No hay laberinto para eliminar");
-    }
-    boolean _equals_1 = Objects.equal(this.laberintoSeleccionado, null);
-    if (_equals_1) {
-      throw new UserException("No hay laberinto seleccionado");
-    }
-  }
-  
-  public void chequearExistenciaDeHabitacion() {
-    List<Habitacion> _habitaciones = this.laberintoSeleccionado.getHabitaciones();
-    int _size = _habitaciones.size();
-    boolean _equals = (_size == 0);
-    if (_equals) {
-      throw new UserException("No hay habitacion para eliminar");
-    }
-    boolean _equals_1 = Objects.equal(this.habitacionSeleccionada, null);
-    if (_equals_1) {
-      throw new UserException("No hay habitacion seleccionado");
-    }
+  public boolean eliminarAccion(final Accion accion) {
+    return this.habitacionSeleccionada.eliminarAccion(accion);
   }
   
   @Pure

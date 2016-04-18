@@ -46,7 +46,12 @@ public class SistemaDeLaberintos {
   }
   
   public boolean agregarLaberinto(final Laberinto laberinto) {
-    return this.laberintos.add(laberinto);
+    boolean _xblockexpression = false;
+    {
+      this.validarLaberinto(laberinto);
+      _xblockexpression = this.laberintos.add(laberinto);
+    }
+    return _xblockexpression;
   }
   
   public boolean eliminarLaberinto(final Laberinto laberinto) {

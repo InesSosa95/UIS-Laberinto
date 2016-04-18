@@ -5,7 +5,6 @@ import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.windows.WindowOwner
 import unq.edu.ar.UIS_Modelo.Laberinto
 
@@ -41,16 +40,12 @@ class EliminarLaberintoWindow  extends TransactionalDialog<Laberinto>{
 			setCaption("Eliminar")
 			width = 170
 			fontSize = 8
-			 onClick [ | destruirLaberinto]
+			 onClick [ | eliminarLaberinto]
 			]
 			
 	}
 	
-	def destruirLaberinto(){
-		var window = this.owner as GatoEncerradoWindow
-		this.close
-		window.destruirLaberinto(this.modelObject)
-		
+	def eliminarLaberinto(){		
 	}
 	
 }

@@ -45,11 +45,7 @@ class EliminarHabitacionWindow extends TransactionalDialog<Habitacion>{
 			]
 	}
 	
-	def destruirHabitacion() {
-		var window = this.owner as GatoEncerradoWindow
-		this.close
-		window.destruirHabitacion(this.modelObject)
-		
+	def destruirHabitacion() {		
 	}
 	
 }

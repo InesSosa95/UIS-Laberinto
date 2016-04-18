@@ -77,28 +77,14 @@ public class CrearHabitacionWindow extends TransactionalDialog<Habitacion> {
   }
   
   public GatoEncerradoWindow agregarHabitacion() {
-    GatoEncerradoWindow _xblockexpression = null;
-    {
-      WindowOwner _owner = this.getOwner();
-      final Procedure1<GatoEncerradoWindow> _function = new Procedure1<GatoEncerradoWindow>() {
-        public void apply(final GatoEncerradoWindow it) {
-          Habitacion _modelObject = CrearHabitacionWindow.this.getModelObject();
-          it.validarHabitacion(_modelObject);
-        }
-      };
-      ObjectExtensions.<GatoEncerradoWindow>operator_doubleArrow(
-        ((GatoEncerradoWindow) _owner), _function);
-      this.close();
-      WindowOwner _owner_1 = this.getOwner();
-      final Procedure1<GatoEncerradoWindow> _function_1 = new Procedure1<GatoEncerradoWindow>() {
-        public void apply(final GatoEncerradoWindow it) {
-          Habitacion _modelObject = CrearHabitacionWindow.this.getModelObject();
-          it.agregarHabitacion(_modelObject);
-        }
-      };
-      _xblockexpression = ObjectExtensions.<GatoEncerradoWindow>operator_doubleArrow(
-        ((GatoEncerradoWindow) _owner_1), _function_1);
-    }
-    return _xblockexpression;
+    WindowOwner _owner = this.getOwner();
+    final Procedure1<GatoEncerradoWindow> _function = new Procedure1<GatoEncerradoWindow>() {
+      public void apply(final GatoEncerradoWindow it) {
+        Habitacion _modelObject = CrearHabitacionWindow.this.getModelObject();
+        it.agregarHabitacion(_modelObject);
+      }
+    };
+    return ObjectExtensions.<GatoEncerradoWindow>operator_doubleArrow(
+      ((GatoEncerradoWindow) _owner), _function);
   }
 }

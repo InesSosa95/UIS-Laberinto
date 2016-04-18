@@ -2,49 +2,61 @@ package unq.edu.ar.UIS_Modelo
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.utils.TransactionalAndObservable
+import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
 class Habitacion {
 	
-	var String nombreHabitacion
-	var List<Accion> acciones
-	var List<Habitacion> vecinas
-	var List<String> itemsDisponibles
-	var String itemUtilizable
-	var Disponibilidad estaDisponible
+	String nombreHabitacion
+	List<Accion> acciones
+	List<Habitacion> vecinas
+	List<Item> itemsDisponibles
+	Item itemUtilizable
+	Disponibilidad estaDisponible
+	Laberinto laberinto
 	
 
-	new(String id, Disponibilidad disponibilidad){
+	new(String id, Disponibilidad disponibilidad, Laberinto laberinto){
 		this.nombreHabitacion = id
 		this.vecinas = newArrayList()
 		this.itemsDisponibles = newArrayList()
-		this.itemUtilizable = itemUtilizable
 		this.estaDisponible = disponibilidad
-		this.acciones = newArrayList() 
+		this.acciones = newArrayList()
+		this.laberinto = laberinto
 	}
 	
 	def esHabitacionVecina(Habitacion habitacion){
 		vecinas.contains(habitacion)
 	}
 	
+	def agregarVecina(Habitacion habitacion){
+		vecinas.add(habitacion)
+	}
+	
+	def agregarAccion(Accion accion){
+		this.acciones.add(accion)
+	}
+	
 	def eliminarAccion(Accion accion){
 		this.acciones.remove(accion)
-		
-		}
+	}
 		
 	def eliminarAcciones(){
 		this.acciones.removeAll()
 	}
 	
-	
-	
-	def eliminarItem(Item item) {
-		this.itemsDisponibles.remove(item)
+	override toString(){
+		nombreHabitacion
 	}
 	
+	def agregarItem(Item item){
+		itemsDisponibles.add(item)
+	}
 	
+	def eliminarItem(Item item) {
+		itemsDisponibles.remove(item)
+	}
 	
 }

@@ -110,7 +110,12 @@ public class Laberinto {
   }
   
   public boolean agregarHabitacion(final Habitacion habitacion) {
-    return this.habitaciones.add(habitacion);
+    boolean _xblockexpression = false;
+    {
+      this.validarHabitacion(habitacion);
+      _xblockexpression = this.habitaciones.add(habitacion);
+    }
+    return _xblockexpression;
   }
   
   public boolean eliminarHabitacion(final Habitacion habitacion) {

@@ -1,13 +1,13 @@
 package aplicationModel
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
 import unq.edu.ar.UIS_Modelo.Accion
 import unq.edu.ar.UIS_Modelo.Habitacion
 import unq.edu.ar.UIS_Modelo.Laberinto
 import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos
 import unq.edu.ar.UIS_Modelo.Usuario
-import org.uqbar.commons.model.UserException
 
 @Accessors
 @Observable
@@ -18,70 +18,38 @@ class GatoEncerradoAppModel {
 	Habitacion habitacionSeleccionada
 	Accion accionSeleccionada
 	Usuario administrador
-	//crotada
 	Laberinto laberintoNuevo
 
 	
 	new(){
 		administrador = new Usuario("Pepito")
 		sistema = new SistemaDeLaberintos(administrador)
-		//crotada
 		laberintoNuevo = new Laberinto("UnLaberintoNuevo", administrador)
-		//laberintos = newArrayList 
 		}
 		
 	def agregarLaberinto(Laberinto laberinto){
 		sistema.agregarLaberinto(laberinto)
 	}
 	
-	def validarLaberinto(Laberinto laberinto){
-		sistema.validarLaberinto(laberinto)
-	}
-	
-	
-	def eliminarLaberinto(Laberinto laberinto){
-		sistema.eliminarLaberinto(laberinto)
-		this.laberintoSeleccionado == null
+	def eliminarLaberinto(){
+		sistema.eliminarLaberinto(laberintoSeleccionado)
 	}
 	
 	def agregarHabitacion(Habitacion habitacion){
 		laberintoSeleccionado.agregarHabitacion(habitacion)
 	}
 	
-	def eliminarHabitacion(Habitacion habitacion){
-		laberintoSeleccionado.eliminarHabitacion(habitacion)
-		
+	
+	def eliminarHabitacion(){
+		laberintoSeleccionado.eliminarHabitacion(habitacionSeleccionada)
 	}
 	
-	def validarHabitacion(Habitacion habitacion){
-		laberintoSeleccionado.validarHabitacion(habitacion)
+	def crearAccion(){
+		this.habitacionSeleccionada.agregarAccion(new Accion(habitacionSeleccionada))
+		ObservableUtils.firePropertyChanged(this,"toString")
 	}
 	
-	
-	def chequearExistenciaDeLaberinto(){
-		if(sistema.laberintos.size()==0)
-			throw new UserException("No hay laberinto para eliminar")
-			if(laberintoSeleccionado == null)
-			throw new UserException("No hay laberinto seleccionado")
+	def eliminarAccion(Accion accion){
+		habitacionSeleccionada.eliminarAccion(accion)
 	}
-	
-	def chequearExistenciaDeHabitacion() {
-		if(laberintoSeleccionado.habitaciones.size()==0)
-		throw new UserException("No hay habitacion para eliminar")
-		if(habitacionSeleccionada == null)
-		throw new UserException("No hay habitacion seleccionado")
-	}
-	
-	//def laberintos(){
-	//	sistema.laberintos
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

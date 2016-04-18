@@ -81,11 +81,6 @@ class IrAOtraHabitacionWindow extends MainWindow<Accion>{ //TransactionalDialog<
 	
 	
 	
-	def void abrirEstadistica() {
-    
-}
-	
-	
 	
 	
 	

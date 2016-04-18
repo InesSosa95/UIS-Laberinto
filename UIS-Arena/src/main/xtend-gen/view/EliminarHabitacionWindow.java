@@ -10,7 +10,6 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 import unq.edu.ar.UIS_Modelo.Habitacion;
-import view.GatoEncerradoWindow;
 
 @SuppressWarnings("all")
 public class EliminarHabitacionWindow extends TransactionalDialog<Habitacion> {
@@ -67,11 +66,7 @@ public class EliminarHabitacionWindow extends TransactionalDialog<Habitacion> {
     ObjectExtensions.<Button>operator_doubleArrow(_button_1, _function_2);
   }
   
-  public void destruirHabitacion() {
-    WindowOwner _owner = this.getOwner();
-    GatoEncerradoWindow window = ((GatoEncerradoWindow) _owner);
-    this.close();
-    Habitacion _modelObject = this.getModelObject();
-    window.destruirHabitacion(_modelObject);
+  public Object destruirHabitacion() {
+    return null;
   }
 }

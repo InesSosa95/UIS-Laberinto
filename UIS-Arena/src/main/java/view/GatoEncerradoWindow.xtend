@@ -1,5 +1,6 @@
 package view
 
+import aplicationModel.GatoEncerradoAppModel
 import java.awt.Color
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.HorizontalLayout
@@ -9,16 +10,15 @@ import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.widgets.RadioSelector
 import org.uqbar.arena.widgets.TextBox
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import unq.edu.ar.UIS_Modelo.AccionMoverDeHabitacion
+import unq.edu.ar.UIS_Modelo.Disponibilidad
 import unq.edu.ar.UIS_Modelo.Habitacion
 import unq.edu.ar.UIS_Modelo.Laberinto
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import org.uqbar.arena.windows.Dialog
-import aplicationModel.GatoEncerradoAppModel
-import org.uqbar.arena.windows.MainWindow
-import unq.edu.ar.UIS_Modelo.Disponibilidad
 
 class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	
@@ -26,7 +26,6 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 		super(owner,model)
 		
 		title = "Aca hay gato encerrado..."
-		//taskDescription = "Hola " + modelObject.administrador.nombreUsuario + "! Administrá todos tus laberintos"  
 	}
 	
 	override createContents(Panel mainPanel) {
@@ -95,7 +94,6 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 				val panelHabitaciones = new Panel(panelOpciones)
 				
 					new Label(panelHabitaciones) => [
-						//bindValueToProperty("sistema.laberintoSeleccionado.nombreLaberinto")
 						height = 15
 						fontSize = 10
 						]
@@ -108,7 +106,6 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					]
 					
 					new TextBox(panelHabitaciones) => [
-						//value <=> "sistema.laberintoSeleccionado.nombreLaberinto"
 						bindValueToProperty("laberintoSeleccionado.nombreLaberinto")
 						height = 15
 						fontSize = 10
@@ -172,12 +169,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 						
 					]
 					
-					new RadioSelector(panelAcciones) => [
-						//opciones esFinal y esInicial
-						//ejemplo de bind:
-						//bindItems(new ObservableProperty(this, "estadosCiviles"))
-            			//bindValueToProperty("estadoCivil")
-						
+					new RadioSelector(panelAcciones) => [						
 					]
 					
 					
@@ -195,7 +187,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 					]
 					
 					new List<Habitacion>(panelAcciones)=> [
-						(items <=> "habitacionSeleccionada.acciones")//TODO .adapter = new PropertyAdapter(typeof(Accion), "id")
+						(items <=> "habitacionSeleccionada.acciones")
             			value <=> "accionSeleccionada"
 						width = 300
 						height = 100
@@ -209,52 +201,29 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 						setCaption("Agregar Accion")
 						fontSize = 11
 						width = 140
-			 			onClick [ | close]
+			 			onClick [ | crearAccion]
 						]
 					
 					new Button(panelAccionBotones) => [
 						setCaption("Eliminar Accion")
 						fontSize = 11
 						width = 140
-			 			onClick [ | close]
+			 			onClick [ | modelObject.eliminarAccion(modelObject.accionSeleccionada)]
 						]
 					
-			
-			
 	}
 	
 	def eliminarHabitacion() {
-		modelObject.chequearExistenciaDeHabitacion()
-		this.openDialog(new EliminarHabitacionWindow(this, modelObject.habitacionSeleccionada))
+		modelObject.eliminarHabitacion()
 	}
 	
-	def destruirHabitacion(Habitacion habitacion){
-		modelObject.eliminarHabitacion(habitacion)
-		modelObject.habitacionSeleccionada = null
-		modelObject.accionSeleccionada = null
-	}
-	
-	
-	
-	//def openDialog(Dialog<?> dialog) {
-		//dialog.onAccept[|modelObject.seleccionar]
-		//dialog.open
-	//}
-	
-	def void abrirEstadistica() {
-      //this.openDialog(new WindowEstadistica(this, modelObject.seleccionar))
-      //modelObject.abrirEstadistica()
-}
-
 
 	def crearLaberinto(){
 		this.openDialog(new CrearLaberintoWindow(this, new Laberinto("LaberintoNuevo", modelObject.administrador)))
-		//this.openDialog(new CrearLaberintoWindow(this))
 	}
 	
 	def eliminarLaberinto(){
-		modelObject.chequearExistenciaDeLaberinto()
-		this.openDialog(new EliminarLaberintoWindow(this, modelObject.laberintoSeleccionado))
+		modelObject.eliminarLaberinto()
 	}
 	
 	
@@ -265,44 +234,32 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	def validarLaberinto(Laberinto laberinto){
 		modelObject.sistema.validarLaberinto(laberinto)
 	}
-	
-	def destruirLaberinto(Laberinto laberinto){
-		modelObject.eliminarLaberinto(laberinto)
-		modelObject.laberintoSeleccionado = null
-		modelObject.habitacionSeleccionada = null
-		modelObject.accionSeleccionada = null
-		}
-	
+		
 	def crearHabitacion() {
-		modelObject.chequearExistenciaDeLaberinto
-		this.openDialog(new CrearHabitacionWindow(this, new Habitacion("HabitacionNueva", Disponibilidad.DISPONIBLE)))
-	}
-	
-	def validarHabitacion(Habitacion habitacion){
-		this.modelObject.validarHabitacion(habitacion)
+		this.openDialog(new CrearHabitacionWindow(this, new Habitacion("HabitacionNueva", Disponibilidad.DISPONIBLE,
+			this.modelObject.laberintoSeleccionado)))
 	}
 	
 	def agregarHabitacion(Habitacion habitacion){
 		this.modelObject.agregarHabitacion(habitacion)
 	}
 	
+	def crearAccion(){
+		this.openDialog(new AgregarHabitacionWindow(this, new AccionMoverDeHabitacion(this.modelObject.habitacionSeleccionada)))
+	}
+	
 
 	def openDialog(Dialog<?> dialog) {
-		//dialog.onAccept[|modelObject.crearDenuncia()]
 		dialog.open
 	}
 	
-	override protected addActions(Panel actionsPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
-	override protected createFormPanel(Panel mainPanel) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+	override protected createFormPanel(Panel mainPanel) {}
 
 	def getAdministrador(){
 		modelObject.administrador
 	}
+	
+	override protected addActions(Panel arg0) {}
 
 	
 }

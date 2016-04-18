@@ -10,6 +10,7 @@ import org.uqbar.commons.utils.Observable;
 import unq.edu.ar.UIS_Modelo.Accion;
 import unq.edu.ar.UIS_Modelo.Disponibilidad;
 import unq.edu.ar.UIS_Modelo.Item;
+import unq.edu.ar.UIS_Modelo.Laberinto;
 
 @Accessors
 @Observable
@@ -21,26 +22,36 @@ public class Habitacion {
   
   private List<Habitacion> vecinas;
   
-  private List<String> itemsDisponibles;
+  private List<Item> itemsDisponibles;
   
-  private String itemUtilizable;
+  private Item itemUtilizable;
   
   private Disponibilidad estaDisponible;
   
-  public Habitacion(final String id, final Disponibilidad disponibilidad) {
+  private Laberinto laberinto;
+  
+  public Habitacion(final String id, final Disponibilidad disponibilidad, final Laberinto laberinto) {
     this.nombreHabitacion = id;
     ArrayList<Habitacion> _newArrayList = CollectionLiterals.<Habitacion>newArrayList();
     this.vecinas = _newArrayList;
-    ArrayList<String> _newArrayList_1 = CollectionLiterals.<String>newArrayList();
+    ArrayList<Item> _newArrayList_1 = CollectionLiterals.<Item>newArrayList();
     this.itemsDisponibles = _newArrayList_1;
-    this.itemUtilizable = this.itemUtilizable;
     this.estaDisponible = disponibilidad;
     ArrayList<Accion> _newArrayList_2 = CollectionLiterals.<Accion>newArrayList();
     this.acciones = _newArrayList_2;
+    this.laberinto = laberinto;
   }
   
   public boolean esHabitacionVecina(final Habitacion habitacion) {
     return this.vecinas.contains(habitacion);
+  }
+  
+  public boolean agregarVecina(final Habitacion habitacion) {
+    return this.vecinas.add(habitacion);
+  }
+  
+  public boolean agregarAccion(final Accion accion) {
+    return this.acciones.add(accion);
   }
   
   public boolean eliminarAccion(final Accion accion) {
@@ -49,6 +60,14 @@ public class Habitacion {
   
   public boolean eliminarAcciones() {
     return CollectionExtensions.<Accion>removeAll(this.acciones);
+  }
+  
+  public String toString() {
+    return this.nombreHabitacion;
+  }
+  
+  public boolean agregarItem(final Item item) {
+    return this.itemsDisponibles.add(item);
   }
   
   public boolean eliminarItem(final Item item) {
@@ -83,20 +102,20 @@ public class Habitacion {
   }
   
   @Pure
-  public List<String> getItemsDisponibles() {
+  public List<Item> getItemsDisponibles() {
     return this.itemsDisponibles;
   }
   
-  public void setItemsDisponibles(final List<String> itemsDisponibles) {
+  public void setItemsDisponibles(final List<Item> itemsDisponibles) {
     this.itemsDisponibles = itemsDisponibles;
   }
   
   @Pure
-  public String getItemUtilizable() {
+  public Item getItemUtilizable() {
     return this.itemUtilizable;
   }
   
-  public void setItemUtilizable(final String itemUtilizable) {
+  public void setItemUtilizable(final Item itemUtilizable) {
     this.itemUtilizable = itemUtilizable;
   }
   
@@ -107,5 +126,14 @@ public class Habitacion {
   
   public void setEstaDisponible(final Disponibilidad estaDisponible) {
     this.estaDisponible = estaDisponible;
+  }
+  
+  @Pure
+  public Laberinto getLaberinto() {
+    return this.laberinto;
+  }
+  
+  public void setLaberinto(final Laberinto laberinto) {
+    this.laberinto = laberinto;
   }
 }

@@ -15,6 +15,11 @@ public class Accion {
     this.habitacionActual = habitacion;
   }
   
+  public String toString() {
+    String _string = this.habitacionActual.toString();
+    return ("Accion " + _string);
+  }
+  
   @Pure
   public Habitacion getHabitacionActual() {
     return this.habitacionActual;

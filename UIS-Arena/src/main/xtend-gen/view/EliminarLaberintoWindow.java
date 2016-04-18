@@ -10,7 +10,6 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 import unq.edu.ar.UIS_Modelo.Laberinto;
-import view.GatoEncerradoWindow;
 
 @SuppressWarnings("all")
 public class EliminarLaberintoWindow extends TransactionalDialog<Laberinto> {
@@ -58,7 +57,7 @@ public class EliminarLaberintoWindow extends TransactionalDialog<Laberinto> {
         it.setFontSize(8);
         final Action _function = new Action() {
           public void execute() {
-            EliminarLaberintoWindow.this.destruirLaberinto();
+            EliminarLaberintoWindow.this.eliminarLaberinto();
           }
         };
         it.onClick(_function);
@@ -67,11 +66,7 @@ public class EliminarLaberintoWindow extends TransactionalDialog<Laberinto> {
     ObjectExtensions.<Button>operator_doubleArrow(_button_1, _function_2);
   }
   
-  public void destruirLaberinto() {
-    WindowOwner _owner = this.getOwner();
-    GatoEncerradoWindow window = ((GatoEncerradoWindow) _owner);
-    this.close();
-    Laberinto _modelObject = this.getModelObject();
-    window.destruirLaberinto(_modelObject);
+  public Object eliminarLaberinto() {
+    return null;
   }
 }
