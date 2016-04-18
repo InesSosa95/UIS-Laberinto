@@ -19,6 +19,7 @@ import unq.edu.ar.UIS_Modelo.Habitacion
 import unq.edu.ar.UIS_Modelo.Laberinto
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.omg.CORBA.UserException
 
 class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	
@@ -208,12 +209,13 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 						setCaption("Eliminar Accion")
 						fontSize = 11
 						width = 140
-			 			onClick [ | modelObject.eliminarAccion(modelObject.accionSeleccionada)]
+			 			onClick [ | eliminarAccion]
 						]
 					
 	}
 	
 	def eliminarHabitacion() {
+		this.modelObject.validarHabitacion
 		modelObject.eliminarHabitacion()
 	}
 	
@@ -223,6 +225,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	}
 	
 	def eliminarLaberinto(){
+		this.modelObject.validarLaberinto
 		modelObject.eliminarLaberinto()
 	}
 	
@@ -236,6 +239,7 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	}
 		
 	def crearHabitacion() {
+		this.modelObject.validarLaberinto	
 		this.openDialog(new CrearHabitacionWindow(this, new Habitacion("HabitacionNueva", Disponibilidad.DISPONIBLE,
 			this.modelObject.laberintoSeleccionado)))
 	}
@@ -245,9 +249,15 @@ class GatoEncerradoWindow extends SimpleWindow<GatoEncerradoAppModel>{
 	}
 	
 	def crearAccion(){
-		this.openDialog(new AgregarHabitacionWindow(this, new AccionMoverDeHabitacion(this.modelObject.habitacionSeleccionada)))
+		this.modelObject.validarHabitacion
+		this.openDialog(new AgregarAccionWindow(this, modelObject))
+		//this.openDialog(new AgregarHabitacionWindow(this, new AccionMoverDeHabitacion(this.modelObject.habitacionSeleccionada)))
 	}
 	
+	def eliminarAccion(){
+		this.modelObject.validarAccion
+		modelObject.eliminarAccion(modelObject.accionSeleccionada)
+	}
 
 	def openDialog(Dialog<?> dialog) {
 		dialog.open

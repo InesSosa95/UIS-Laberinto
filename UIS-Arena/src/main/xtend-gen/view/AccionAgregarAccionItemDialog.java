@@ -15,6 +15,8 @@ import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ControlBuilder;
 import unq.edu.ar.UIS_Modelo.AccionUsarItem;
 import unq.edu.ar.UIS_Modelo.Habitacion;
+import unq.edu.ar.UIS_Modelo.Item;
+import view.AgregarAccionItemDialog;
 
 @SuppressWarnings("all")
 public class AccionAgregarAccionItemDialog extends TransactionalDialog<AccionUsarItem> {
@@ -34,22 +36,22 @@ public class AccionAgregarAccionItemDialog extends TransactionalDialog<AccionUsa
     Label _label_1 = new Label(mainPanel);
     final Procedure1<Label> _function_1 = new Procedure1<Label>() {
       public void apply(final Label it) {
-        it.setText("Escriba el elemento que aparecera en la habitacion");
+        it.setText("Seleccione el elemento que tendrá una accion");
         it.setHeight(20);
       }
     };
     ObjectExtensions.<Label>operator_doubleArrow(_label_1, _function_1);
-    Selector<Habitacion> _selector = new Selector<Habitacion>(mainPanel);
-    final Procedure1<Selector<Habitacion>> _function_2 = new Procedure1<Selector<Habitacion>>() {
-      public void apply(final Selector<Habitacion> it) {
+    Selector<Item> _selector = new Selector<Item>(mainPanel);
+    final Procedure1<Selector<Item>> _function_2 = new Procedure1<Selector<Item>>() {
+      public void apply(final Selector<Item> it) {
         it.allowNull(false);
-        it.<Object, ControlBuilder>bindValueToProperty("habitacionActual.laberinto");
+        it.<Object, ControlBuilder>bindValueToProperty("itemSeleccionado");
         AccionUsarItem _modelObject = AccionAgregarAccionItemDialog.this.getModelObject();
-        ObservableProperty<Object> _observableProperty = new ObservableProperty<Object>(_modelObject, "itemsDisponibles");
+        ObservableProperty<Object> _observableProperty = new ObservableProperty<Object>(_modelObject, "habitacionActual.itemsDisponibles");
         it.<Object>bindItems(_observableProperty);
       }
     };
-    ObjectExtensions.<Selector<Habitacion>>operator_doubleArrow(_selector, _function_2);
+    ObjectExtensions.<Selector<Item>>operator_doubleArrow(_selector, _function_2);
     final Panel panelOpciones = new Panel(mainPanel);
     HorizontalLayout _horizontalLayout = new HorizontalLayout();
     panelOpciones.setLayout(_horizontalLayout);
@@ -98,8 +100,11 @@ public class AccionAgregarAccionItemDialog extends TransactionalDialog<AccionUsa
   }
   
   public void crearAccion() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field habitacionSeleccionada is undefined for the type AccionUsarItem");
+    AccionUsarItem _modelObject = this.getModelObject();
+    Habitacion _habitacionActual = _modelObject.getHabitacionActual();
+    AccionUsarItem _accionUsarItem = new AccionUsarItem(_habitacionActual);
+    AgregarAccionItemDialog _agregarAccionItemDialog = new AgregarAccionItemDialog(this, _accionUsarItem);
+    this.openDialog(_agregarAccionItemDialog);
   }
   
   public void openDialog(final Dialog<?> dialog) {

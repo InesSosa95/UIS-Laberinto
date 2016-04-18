@@ -28,7 +28,7 @@ class AccionAgarrarItemDialog extends TransactionalDialog<AccionAgarrarItem>{
 		]
 			
 	new TextBox(mainPanel) => [
-		bindValueToProperty("accionSeleccionada.agregarItemDisponible")
+		bindValueToProperty("nombreItem")//"accionSeleccionada.agregarItemDisponible"
 		height = 15
 		fontSize = 10
 		]
@@ -54,7 +54,10 @@ class AccionAgarrarItemDialog extends TransactionalDialog<AccionAgarrarItem>{
 	
 	//REVISAR
 	def agregarAccion(){
+		
+		modelObject.agregarItemDisponble
 		modelObject.habitacionActual.agregarAccion(modelObject)
+		close
 	}
 	
 	override protected createFormPanel(Panel arg0) {}	

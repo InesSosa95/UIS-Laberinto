@@ -12,6 +12,7 @@ import org.uqbar.arena.windows.WindowOwner
 import unq.edu.ar.UIS_Modelo.AccionMoverDeHabitacion
 import unq.edu.ar.UIS_Modelo.AccionUsarItem
 import unq.edu.ar.UIS_Modelo.Habitacion
+import unq.edu.ar.UIS_Modelo.Item
 
 class AccionAgregarAccionItemDialog extends TransactionalDialog<AccionUsarItem>{
 	
@@ -27,14 +28,14 @@ class AccionAgregarAccionItemDialog extends TransactionalDialog<AccionUsarItem>{
 		]
 			
 	new Label(mainPanel) => [
-		text = "Escriba el elemento que aparecera en la habitacion"
+		text = "Seleccione el elemento que tendrá una accion"
 		height = 20
 		]
 			
-	new Selector<Habitacion>(mainPanel) => [
+	new Selector<Item>(mainPanel) => [
 		allowNull(false)				
-		bindValueToProperty("habitacionActual.laberinto")
-		bindItems(new ObservableProperty(modelObject, "itemsDisponibles"))
+		bindValueToProperty("itemSeleccionado")
+		bindItems(new ObservableProperty(modelObject, "habitacionActual.itemsDisponibles"))
 		]
 			
 	val panelOpciones = new Panel(mainPanel)
@@ -66,7 +67,8 @@ class AccionAgregarAccionItemDialog extends TransactionalDialog<AccionUsarItem>{
 	
 	//REVISAR
 	def crearAccion(){
-		this.openDialog(new AgregarHabitacionWindow(this, new AccionMoverDeHabitacion(modelObject.habitacionSeleccionada)))
+		this.openDialog(new AgregarAccionItemDialog(this, new AccionUsarItem(modelObject.habitacionActual)))
+		
 	}
 	
 

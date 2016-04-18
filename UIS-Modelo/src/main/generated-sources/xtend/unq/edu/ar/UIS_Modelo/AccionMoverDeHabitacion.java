@@ -4,6 +4,7 @@ import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.utils.TransactionalAndObservable;
 import unq.edu.ar.UIS_Modelo.Accion;
 import unq.edu.ar.UIS_Modelo.Habitacion;
@@ -13,8 +14,11 @@ import unq.edu.ar.UIS_Modelo.Laberinto;
 @TransactionalAndObservable
 @SuppressWarnings("all")
 public class AccionMoverDeHabitacion extends Accion {
-  public AccionMoverDeHabitacion(final Habitacion habitacion) {
-    super(habitacion);
+  private Habitacion habitacionProxima;
+  
+  public AccionMoverDeHabitacion(final Habitacion habitacionActual) {
+    super(habitacionActual);
+    this.habitacionProxima = habitacionActual;
   }
   
   public List<Habitacion> habitacionesDisponibles() {
@@ -34,5 +38,19 @@ public class AccionMoverDeHabitacion extends Accion {
     };
     Iterable<Habitacion> _filter = IterableExtensions.<Habitacion>filter(habitaciones, _function);
     return IterableExtensions.<Habitacion>toList(_filter);
+  }
+  
+  public String toString() {
+    String _string = this.habitacionProxima.toString();
+    return ("Accion Moverse a -" + _string);
+  }
+  
+  @Pure
+  public Habitacion getHabitacionProxima() {
+    return this.habitacionProxima;
+  }
+  
+  public void setHabitacionProxima(final Habitacion habitacionProxima) {
+    this.habitacionProxima = habitacionProxima;
   }
 }

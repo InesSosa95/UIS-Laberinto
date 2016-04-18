@@ -14,4 +14,8 @@ class Item {
 		nombre = nombreItem
 	}
 	
+	override toString(){
+		nombre
+	}
+	
 }

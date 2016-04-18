@@ -23,8 +23,11 @@ class Accion {
 @TransactionalAndObservable
 class AccionMoverDeHabitacion extends Accion{
 	
-	new(Habitacion habitacion) {
-		super (habitacion)
+	Habitacion habitacionProxima
+	
+	new(Habitacion habitacionActual) {
+		super (habitacionActual)
+		habitacionProxima = habitacionActual 
 	}
 	
 	def habitacionesDisponibles(){
@@ -35,19 +38,29 @@ class AccionMoverDeHabitacion extends Accion{
 		habitaciones.filter[! it.equals(habitacionActual)].toList
 	}
 	
+	override toString(){
+		"Accion Moverse a -" + habitacionProxima.toString()
+	}
+	
 }
 
 @Accessors
 @TransactionalAndObservable
 class AccionAgarrarItem extends Accion{
 	
+	String nombreItem
+	
 	new(Habitacion habitacion){
 		super (habitacion)
 	}
 	
-	def agregarItemDisponble(String nombreItem){
+	def agregarItemDisponble(){
 		var item = new Item(nombreItem)
 		habitacionActual.itemsDisponibles.add(item)
+	}
+	
+	override toString(){
+		"Accion Agarrar item -" + nombreItem
 	}
 	
 }
@@ -62,9 +75,18 @@ class AccionUsarItem extends Accion{
 	new(Habitacion habitacion, String item){
 		super(habitacion)
 		itemSeleccionado = new Item(item)
-	}	
+	}
+	
+	new(Habitacion habitacion){
+		super(habitacion)
+	}
+		
 	def crearAccionItem(){
 		accionItem = new Accion(habitacionActual)
+	}
+	
+	override toString(){
+		"Accion de Usar " + itemSeleccionado.toString + ":" + accionItem.toString
 	}
 
 	}

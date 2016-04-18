@@ -40,7 +40,7 @@ public class AccionAgarrarItemDialog extends TransactionalDialog<AccionAgarrarIt
     TextBox _textBox = new TextBox(mainPanel);
     final Procedure1<TextBox> _function_2 = new Procedure1<TextBox>() {
       public void apply(final TextBox it) {
-        it.<Object, ControlBuilder>bindValueToProperty("accionSeleccionada.agregarItemDisponible");
+        it.<Object, ControlBuilder>bindValueToProperty("nombreItem");
         it.setHeight(15);
         it.setFontSize(10);
       }
@@ -79,11 +79,14 @@ public class AccionAgarrarItemDialog extends TransactionalDialog<AccionAgarrarIt
     ObjectExtensions.<Button>operator_doubleArrow(_button_1, _function_4);
   }
   
-  public boolean agregarAccion() {
+  public void agregarAccion() {
     AccionAgarrarItem _modelObject = this.getModelObject();
-    Habitacion _habitacionActual = _modelObject.getHabitacionActual();
+    _modelObject.agregarItemDisponble();
     AccionAgarrarItem _modelObject_1 = this.getModelObject();
-    return _habitacionActual.agregarAccion(_modelObject_1);
+    Habitacion _habitacionActual = _modelObject_1.getHabitacionActual();
+    AccionAgarrarItem _modelObject_2 = this.getModelObject();
+    _habitacionActual.agregarAccion(_modelObject_2);
+    this.close();
   }
   
   protected void createFormPanel(final Panel arg0) {

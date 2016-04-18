@@ -1,8 +1,10 @@
 package aplicationModel;
 
+import com.google.common.base.Objects;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Pure;
 import org.uqbar.commons.model.ObservableUtils;
+import org.uqbar.commons.model.UserException;
 import org.uqbar.commons.utils.Observable;
 import unq.edu.ar.UIS_Modelo.Accion;
 import unq.edu.ar.UIS_Modelo.Habitacion;
@@ -59,6 +61,27 @@ public class GatoEncerradoAppModel {
   
   public boolean eliminarAccion(final Accion accion) {
     return this.habitacionSeleccionada.eliminarAccion(accion);
+  }
+  
+  public void validarLaberinto() {
+    boolean _equals = Objects.equal(this.laberintoSeleccionado, null);
+    if (_equals) {
+      throw new UserException("No hay laberinto seleccionado");
+    }
+  }
+  
+  public void validarHabitacion() {
+    boolean _equals = Objects.equal(this.habitacionSeleccionada, null);
+    if (_equals) {
+      throw new UserException("No hay habitacion seleccionada");
+    }
+  }
+  
+  public void validarAccion() {
+    boolean _equals = Objects.equal(this.accionSeleccionada, null);
+    if (_equals) {
+      throw new UserException("No hay accion seleccionada");
+    }
   }
   
   @Pure

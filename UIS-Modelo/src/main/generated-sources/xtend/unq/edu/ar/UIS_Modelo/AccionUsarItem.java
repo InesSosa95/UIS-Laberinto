@@ -21,10 +21,21 @@ public class AccionUsarItem extends Accion {
     this.itemSeleccionado = _item;
   }
   
+  public AccionUsarItem(final Habitacion habitacion) {
+    super(habitacion);
+  }
+  
   public Accion crearAccionItem() {
     Habitacion _habitacionActual = this.getHabitacionActual();
     Accion _accion = new Accion(_habitacionActual);
     return this.accionItem = _accion;
+  }
+  
+  public String toString() {
+    String _string = this.itemSeleccionado.toString();
+    String _plus = ("Accion de Usar " + _string);
+    String _plus_1 = (_plus + ":");
+    return (_plus_1 + "pudrirse");
   }
   
   @Pure

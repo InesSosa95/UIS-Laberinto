@@ -1,16 +1,20 @@
 package view
 
+import aplicationModel.GatoEncerradoAppModel
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
+import unq.edu.ar.UIS_Modelo.AccionAgarrarItem
 import unq.edu.ar.UIS_Modelo.AccionMoverDeHabitacion
+import unq.edu.ar.UIS_Modelo.Accion
+import unq.edu.ar.UIS_Modelo.AccionUsarItem
 
-class AgregarHabitacionWindow extends Dialog<AccionMoverDeHabitacion>{
+class AgregarAccionWindow extends Dialog<GatoEncerradoAppModel>{
 	
-	new(WindowOwner owner, AccionMoverDeHabitacion model) {
+	new(WindowOwner owner, GatoEncerradoAppModel model) {
 		super(owner, model)
 		title = "Agregar Acción"
 	}
@@ -45,7 +49,7 @@ class AgregarHabitacionWindow extends Dialog<AccionMoverDeHabitacion>{
 			new Button(panelOpciones) => [
 			setCaption("Agregar accion de Agarrar un elemento")
 			fontSize = 8
-			 onClick [ | close]
+			 onClick [ | agarrarItem]
 			]
 			
 			new Label(panelOpciones) => [
@@ -55,7 +59,7 @@ class AgregarHabitacionWindow extends Dialog<AccionMoverDeHabitacion>{
 			new Button(panelOpciones) => [
 			setCaption("Agregar accion de Usar un elemento")
 			fontSize = 8
-			 onClick [ | close]
+			 onClick [ | crearAccionDeUsar]
 			]
 			
 			new Label(panelOpciones) => [
@@ -65,10 +69,25 @@ class AgregarHabitacionWindow extends Dialog<AccionMoverDeHabitacion>{
 	}
 	
 	def cambiarHabitacion(){
-		this.openDialog(new AccionCambiarHabitacionDialog(this, modelObject))
+		this.close
+		this.openDialog(new AccionCambiarHabitacionDialog(owner, new AccionMoverDeHabitacion(modelObject.habitacionSeleccionada)))
+		
+		
 	}
 	
-	def openDialog(AccionCambiarHabitacionDialog dialog) {
+	def agarrarItem(){
+		this.close
+		this.openDialog(new AccionAgarrarItemDialog(owner, new AccionAgarrarItem(modelObject.habitacionSeleccionada)))
+		
+		
+	}
+	
+	def crearAccionDeUsar(){
+		this.close
+		this.openDialog(new AccionAgregarAccionItemDialog(owner, new AccionUsarItem(modelObject.habitacionSeleccionada)))
+	}
+	
+	def openDialog(Dialog<?> dialog) {
 		dialog.open
 	}
 		

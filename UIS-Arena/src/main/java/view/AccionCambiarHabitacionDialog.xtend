@@ -31,8 +31,9 @@ class AccionCambiarHabitacionDialog extends TransactionalDialog<AccionMoverDeHab
 			
 			new Selector<Habitacion>(mainPanel) => [
 				allowNull(false)				
-				bindValueToProperty("habitacionActual")
-				bindItems(new ObservableProperty(modelObject, "habitacionesDisponibles"))
+				bindValueToProperty("habitacionProxima")
+				bindItems(new ObservableProperty(modelObject, "habitacionesDisponibles"
+				))
 			]
 			
 			
@@ -57,8 +58,10 @@ class AccionCambiarHabitacionDialog extends TransactionalDialog<AccionMoverDeHab
 	
 	//REVISAR
 	def crearAccion(){
-		modelObject.habitacionActual.crearAccion()
-		close		
+		//chequear accion repetida
+		modelObject.habitacionActual.agregarAccion(modelObject)
+		close
+		
 	}
 	
 	override protected createFormPanel(Panel arg0) {}	

@@ -8,6 +8,7 @@ import unq.edu.ar.UIS_Modelo.Habitacion
 import unq.edu.ar.UIS_Modelo.Laberinto
 import unq.edu.ar.UIS_Modelo.SistemaDeLaberintos
 import unq.edu.ar.UIS_Modelo.Usuario
+import org.uqbar.commons.model.UserException
 
 @Accessors
 @Observable
@@ -52,4 +53,19 @@ class GatoEncerradoAppModel {
 	def eliminarAccion(Accion accion){
 		habitacionSeleccionada.eliminarAccion(accion)
 	}
+	
+	def validarLaberinto(){
+		if(this.laberintoSeleccionado == null)
+			throw new UserException("No hay laberinto seleccionado")
+}
+	def validarHabitacion(){
+		if(this.habitacionSeleccionada == null)
+			throw new UserException("No hay habitacion seleccionada")
+}
+
+	def validarAccion(){
+		if(this.accionSeleccionada == null)
+			throw new UserException("No hay accion seleccionada")
+	}
+	
 }
