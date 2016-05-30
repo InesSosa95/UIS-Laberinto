@@ -19,4 +19,5 @@ class Usuario {
 		laberintosAbandonados = newArrayList()
 	}
 	
+	
 }

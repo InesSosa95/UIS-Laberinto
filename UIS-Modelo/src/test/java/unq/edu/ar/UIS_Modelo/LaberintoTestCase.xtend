@@ -15,7 +15,7 @@ class LaberintoTestCase {
 	@Before def void setup(){
 		val disponible = Disponibilidad.DISPONIBLE
 		administrador = new Usuario("Pepe")
-		laberinto = new Laberinto()
+//		laberinto = new Laberinto()
 		habitacion1 = new Habitacion("Patio", disponible, laberinto)
 		habitacion2 = new Habitacion ("Catacumba", disponible, laberinto)
 		habitacion3 = new Habitacion ("Catacumba", disponible, laberinto)	

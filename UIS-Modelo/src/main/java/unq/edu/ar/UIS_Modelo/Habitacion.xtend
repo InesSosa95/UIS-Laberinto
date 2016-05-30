@@ -2,7 +2,6 @@ package unq.edu.ar.UIS_Modelo
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.uqbar.commons.model.ObservableUtils
 import org.uqbar.commons.utils.Observable
 
 @Accessors
@@ -57,6 +56,10 @@ class Habitacion {
 	
 	def eliminarItem(Item item) {
 		itemsDisponibles.remove(item)
+	}
+	
+	def tieneItem(Item item){
+		itemsDisponibles.contains(item)
 	}
 	
 }

@@ -74,6 +74,10 @@ public class Habitacion {
     return this.itemsDisponibles.remove(item);
   }
   
+  public boolean tieneItem(final Item item) {
+    return this.itemsDisponibles.contains(item);
+  }
+  
   @Pure
   public String getNombreHabitacion() {
     return this.nombreHabitacion;

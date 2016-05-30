@@ -32,16 +32,6 @@ public class Laberinto {
   
   private List<Item> items;
   
-  public Laberinto() {
-    this.nombreLaberinto = "estoNoDeberiaPasar";
-    ArrayList<Habitacion> _newArrayList = CollectionLiterals.<Habitacion>newArrayList();
-    this.habitaciones = _newArrayList;
-    ArrayList<Item> _newArrayList_1 = CollectionLiterals.<Item>newArrayList();
-    this.items = _newArrayList_1;
-    this.habitacionInicial = null;
-    this.habitacionFinal = null;
-  }
-  
   public Laberinto(final String nombre, final Usuario admin) {
     this.nombreLaberinto = nombre;
     this.administrador = admin;

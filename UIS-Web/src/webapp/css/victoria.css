@@ -1,0 +1,100 @@
+body {
+    background-image: url(image/jinx.jpg);
+    background-repeat: no-repeat center center fixed;
+    background-position: right top;
+
+    
+    
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+    margin-right: 0px;
+}
+
+
+.panel-victory {
+      height: 200px;
+padding-bottom: 55px; 
+          width: 410px;
+background-color: #BCF5A9 ;
+ margin-left: 100px;
+ margin-right: 0px;
+ float: left; 
+
+
+
+ }
+.panel-stadistics{
+ margin-left: 0px; 
+float: left; 
+}
+
+.stadistic {
+ height: 230px;
+padding-bottom: 55px; 
+          width: 199px;
+background-color: black ;
+ margin-right: 0px;
+}
+
+.stadistic label {
+display:inline-block;
+    *display: inline;     /* for IE7*/
+    zoom:1;              /* for IE7*/
+    float: left;
+    padding-top: 5px;
+    text-align: left;
+    width: 140px;
+}
+
+.stadistics {
+      height: 200px;
+padding-bottom: 55px; 
+          width: 400px;
+ margin-left: 100px;
+ margin-right: 0px;
+ float: left; 
+
+
+}
+
+#left_col_statics {
+   float:left;
+
+}
+#right_col_statics {
+   float:right;
+
+
+}
+
+#center_col_statics {
+   float:center;
+
+
+}
+
+
+
+#left_col {
+   float:left;
+   width:99px;
+}
+#right_col {
+   float:right;
+   width:60px;
+}
+
+#full-width {
+    display:block;
+}
+
+
+
+
+
+
+
+
+
+

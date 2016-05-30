@@ -26,8 +26,6 @@ public class LaberintoTestCase {
     final Disponibilidad disponible = Disponibilidad.DISPONIBLE;
     Usuario _usuario = new Usuario("Pepe");
     this.administrador = _usuario;
-    Laberinto _laberinto = new Laberinto();
-    this.laberinto = _laberinto;
     Habitacion _habitacion = new Habitacion("Patio", disponible, this.laberinto);
     this.habitacion1 = _habitacion;
     Habitacion _habitacion_1 = new Habitacion("Catacumba", disponible, this.laberinto);

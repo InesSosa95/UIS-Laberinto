@@ -35,7 +35,8 @@ public class AccionUsarItem extends Accion {
     String _string = this.itemSeleccionado.toString();
     String _plus = ("Accion de Usar " + _string);
     String _plus_1 = (_plus + ":");
-    return (_plus_1 + "pudrirse");
+    String _string_1 = this.accionItem.toString();
+    return (_plus_1 + _string_1);
   }
   
   @Pure

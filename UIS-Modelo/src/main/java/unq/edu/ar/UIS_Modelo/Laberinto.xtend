@@ -18,14 +18,6 @@ class Laberinto {
 	var Usuario administrador
 	var List<Item> items
 	
-	new(){
-		nombreLaberinto = "estoNoDeberiaPasar"
-		habitaciones = newArrayList
-		items = newArrayList
-		habitacionInicial = null
-		habitacionFinal = null
-	}
-	
 	new(String nombre, Usuario admin){
 		nombreLaberinto = nombre
 		administrador = admin

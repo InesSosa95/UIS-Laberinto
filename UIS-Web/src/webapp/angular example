@@ -1,0 +1,14 @@
+<div class="form-group row">
+ 
+            <div class="col-md-2">
+                <label>Desde</label>
+                <select class="form-control" ng-model="imes" ng-options="mes.titulo for mes in meses" />
+                <select class="form-control" ng-model="ianyo" ng-options="anyo for anyo in anyos" />
+            </div>
+ 
+            <div class="col-md-2">
+                <label>Hasta</label>
+                <select class="form-control" ng-model="fmes" ng-options="mes.titulo for mes in meses" />
+                <select class="form-control" ng-model="fanyo" ng-options="anyo for anyo in anyos" />
+            </div>
+        </div>

@@ -1,0 +1,34 @@
+html {
+  	 background: url(image/fondo_index3.gif) no-repeat fixed center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: auto 100%;
+}
+.titulo{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.panel-estadisticas{
+	margin-top: 50px;
+    border-top: 3px solid green;
+    border-bottom: 3px double green;
+	border-bottom-style: dotted;
+	border-top-style: dotted;
+}
+.buffer{
+	margin-right: 100px;
+}
+.ndp{
+	background-color: black;
+	color: white;
+	text-align: center;
+	width: 306px;
+}
+.stats{
+	text-align: center;
+}
+
+body {
+  background:none;
+}
